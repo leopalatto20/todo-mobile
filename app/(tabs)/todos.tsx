@@ -85,7 +85,7 @@ export default function TodosScreen() {
   }, [user, isLoading, token]);
 
   const handleSignOut = () => {
-    signOut().then(() => router.replace("/"));
+    signOut().then(() => router.replace("/")).catch(() => {});
   };
 
   if (isLoading) {
