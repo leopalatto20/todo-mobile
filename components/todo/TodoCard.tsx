@@ -20,6 +20,20 @@ export function TodoCard({ item }: { item: TodoResponse }) {
           {item.description}
         </Text>
 
+        <Box className="flex-row flex-wrap gap-1.5 mt-1">
+          {item.categories.map((cat) => (
+            <Box
+              key={cat.id}
+              className="px-2 py-0.5 rounded-full"
+              style={{ backgroundColor: cat.color }}
+            >
+              <Text size="xs" className="text-white font-medium">
+                {cat.name}
+              </Text>
+            </Box>
+          ))}
+        </Box>
+
         <Box className="flex-row items-center gap-2 mt-1">
           <Text
             size="xs"

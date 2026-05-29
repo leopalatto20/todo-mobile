@@ -4,13 +4,13 @@ https://docs.expo.dev/versions/v54.0.0/
 
 ## Commands
 
-| Action | Command |
-|---|---|
-| Start dev | `npx expo start` |
-| iOS | `npx expo start --ios` |
-| Android | `npx expo start --android` |
-| Web | `npx expo start --web` |
-| Lint | `npm run lint` (`expo lint`) |
+| Action    | Command                      |
+| --------- | ---------------------------- |
+| Start dev | `npx expo start`             |
+| iOS       | `npx expo start --ios`       |
+| Android   | `npx expo start --android`   |
+| Web       | `npx expo start --web`       |
+| Lint      | `npm run lint` (`expo lint`) |
 
 Package manager: **Bun** — use `bun add` / `bun install`
 
@@ -65,6 +65,7 @@ Metro: wrapped with `withNativeWind(config, { input: './global.css' })`.
 ## Available skills
 
 Load with `skill` tool — installed via `skills-lock.json`:
+
 - `building-native-ui` — native component patterns
 - `expo-api-routes` — server-side API routes
 - `expo-module` — native module creation

@@ -196,19 +196,22 @@ export function CreateTodoSheet() {
                       {categories.map((cat) => {
                         const isSelected = selectedCategoryIds.includes(cat.id);
                         return (
-                          <Pressable
+                      <Pressable
                             key={cat.id}
                             className={`flex-row items-center gap-2 px-3 py-2 rounded-lg border ${
                               isSelected
-                                ? "border-primary-500 bg-primary-50"
+                                ? "border-transparent"
                                 : "border-outline-200"
                             }`}
+                            style={
+                              isSelected ? { backgroundColor: cat.color } : undefined
+                            }
                             onPress={() => toggleCategory(cat.id)}
                           >
                             <Box
                               className={`w-3.5 h-3.5 rounded border-2 items-center justify-center ${
                                 isSelected
-                                  ? "bg-primary-500 border-primary-500"
+                                  ? "bg-white/30 border-white"
                                   : "border-outline-300"
                               }`}
                             >
@@ -218,7 +221,10 @@ export function CreateTodoSheet() {
                                 </Text>
                               )}
                             </Box>
-                            <Text size="sm" className="text-typography-700">
+                            <Text
+                              size="sm"
+                              className={isSelected ? "text-white font-medium" : "text-typography-700"}
+                            >
                               {cat.name}
                             </Text>
                           </Pressable>
