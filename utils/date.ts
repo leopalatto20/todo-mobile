@@ -3,7 +3,8 @@ export function formatDueDate(dateString: string): string {
   return date.toLocaleDateString(undefined, {
     month: "short",
     day: "numeric",
-    year: date.getFullYear() !== new Date().getFullYear() ? "numeric" : undefined,
+    year:
+      date.getFullYear() !== new Date().getFullYear() ? "numeric" : undefined,
   });
 }
 

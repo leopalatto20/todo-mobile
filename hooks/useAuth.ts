@@ -6,13 +6,8 @@ import type { CreateUserDto } from "@/types/user";
 export function useSignIn() {
   const signIn = useAuthStore((s) => s.signIn);
   return useMutation({
-    mutationFn: ({
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    }) => signIn(email, password),
+    mutationFn: ({ email, password }: { email: string; password: string }) =>
+      signIn(email, password),
   });
 }
 

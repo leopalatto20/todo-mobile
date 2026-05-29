@@ -1,7 +1,7 @@
 import { Box } from "@/components/ui/box";
 import { Text } from "@/components/ui/text";
-import { priorityColor, priorityLabel } from "@/utils/todo";
 import type { TodoPriority } from "@/types/todo";
+import { priorityColor, priorityLabel } from "@/utils/todo";
 
 export function PriorityBadge({ priority }: { priority: TodoPriority }) {
   return (
