@@ -1,13 +1,7 @@
-import { useEffect } from "react";
 import { router, Stack } from "expo-router";
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-
+import { useEffect } from "react";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useSignOut } from "@/hooks/useAuth";
 import { useAuthStore } from "@/stores/authStore";
 

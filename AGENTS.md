@@ -1,6 +1,6 @@
-# Expo HAS CHANGED
+# Expo SDK 54 — read exact versioned docs before coding
 
-Read the exact versioned docs at https://docs.expo.dev/versions/v54.0.0/ before writing any code.
+https://docs.expo.dev/versions/v54.0.0/
 
 ## Commands
 
@@ -9,44 +9,63 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v54.0.0/ before 
 | Start dev | `npx expo start` |
 | iOS | `npx expo start --ios` |
 | Android | `npx expo start --android` |
-| Lint | `npm run lint` (runs `expo lint`) |
+| Web | `npx expo start --web` |
+| Lint | `npm run lint` (`expo lint`) |
 
-Package manager: **Bun** (bun.lock present). Use `bun add` / `bun install`.
+Package manager: **Bun** — use `bun add` / `bun install`
 
-No test framework configured. No CI.
-
-## Project conventions
-
-- **Entry**: `expo-router/entry` (package.json `main`). File-based routes in `app/`.
-- **Path alias**: `@/*` → `./*` (configured in tsconfig.json).
-- **TypeScript**: strict mode.
-- **New Architecture**: enabled (`"newArchEnabled": true` in app.json).
-- **Expo experiments**: `typedRoutes` (type-safe `router.push()`) and `reactCompiler` enabled.
-- **Style**: React Native `StyleSheet` / inline styles — no Tailwind or styled-system.
-- **Splash screen**: configured via `expo-splash-screen` plugin in app.json.
+No test framework. No CI.
 
 ## Architecture
 
 ```
-config/     # Firebase app init
-types/      # Manual interfaces matching OpenAPI spec
-services/   # Axios CRUD functions per entity
-stores/     # Zustand (auth with persist)
-hooks/      # TanStack Query wrappers
+app/        # File-based routes (expo-router). _layout.tsx is root
+config/     # Firebase app init (`initializeAuth` with AsyncStorage persistence)
+types/      # Manual interfaces matching REST API responses
+services/   # Axios CRUD per entity. api.ts creates client with auth interceptor
+stores/     # Zustand with persist (AsyncStorage). Single authStore
+hooks/      # TanStack Query v5 wrappers around services
 utils/      # Date formatters, etc.
+components/ # ui/gluestack-ui-provider/ — GluestackUIProvider wrapping NativeWind
 ```
 
-Data flow: **Screen → Hook (TanStack Query) → Service (Axios) → REST API**
-Auth: **Firebase Auth → Zustand store → Axios interceptor** (token via `useAuthStore.getState().token`)
+Entry: `expo-router/entry` (package.json `main`).
 
-**Known lint issue:** `npm run lint` reports `import/no-unresolved` for `@/*` path aliases. This is an Expo ESLint config limitation — paths resolve correctly at runtime via Metro. `npx tsc` has the same limitation.
+## Data flow
+
+**Screen → Hook (TanStack Query) → Service (Axios) → REST API**
+
+Auth: **Firebase Auth → Zustand store → Axios interceptor** (`useAuthStore.getState().token`)
+
+Env vars: `EXPO_PUBLIC_*` prefix. Copy `.env.example` to `.env`.
+
+## Styling
+
+**NativeWind v4** with `className` props and Tailwind utilities. Import `@/global.css` in root layout. All screens use `className` — never `StyleSheet.create`.
+
+**GluestackUI v3** (`@gluestack-ui/core`) wraps the app via `<GluestackUIProvider>` in `app/_layout.tsx`. Custom RGB color tokens defined in `tailwind.config.js` (`bg-background-0`, `text-typography-950`, `bg-primary-500`, etc.).
+
+Metro: wrapped with `withNativeWind(config, { input: './global.css' })`.
+
+## Tooling
+
+- **TypeScript**: strict mode, `@/*` → `./*` path alias (tsconfig.json + babel-plugin-module-resolver)
+- **New Architecture**: enabled (`newArchEnabled: true` in app.json)
+- **Expo experiments**: `typedRoutes` and `reactCompiler` enabled
+- **Metro / Babel**: `babel-preset-expo`, `nativewind/babel`, `react-native-worklets/plugin`
+- **Formatter**: Prettier with `prettier-plugin-tailwindcss`
+
+## Known issues
+
+- `npm run lint` / `npx tsc` report `import/no-unresolved` for `@/*` — Expo ESLint config limitation. Metro resolves them correctly at runtime.
+- `.env` is gitignored; `.env.example` has the schema.
 
 ## Available skills
 
-Installed via `skills-lock.json` — load with `skill` tool:
+Load with `skill` tool — installed via `skills-lock.json`:
 - `building-native-ui` — native component patterns
-- `expo-api-routes` — server-side API routes (if applicable)
+- `expo-api-routes` — server-side API routes
 - `expo-module` — native module creation
-- `expo-tailwind-setup` — Tailwind CSS setup (not yet installed)
+- `expo-tailwind-setup` — Tailwind CSS setup for Expo
 - `native-data-fetching` — React Native data fetching
 - `upgrading-expo` — SDK upgrade guidance
