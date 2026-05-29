@@ -16,7 +16,7 @@ export default function SignupScreen() {
     try {
       await register({ name, email, password });
       const profile = await userService.getProfile();
-      useAuthStore.getState().setUser(profile as any);
+      useAuthStore.getState().setUser(profile);
       router.replace("/todos");
     } catch {
       // error is surfaced via the mutation's `error` state

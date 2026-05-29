@@ -7,13 +7,7 @@ export type User = {
   role: string;
 };
 
-export type UserProfileResponse = {
-  id: string;
-  name: string;
-  email: string;
-  providerUid: string;
-  role: string;
-};
+export type UserProfileResponse = User;
 
 export type CreateUserDto = {
   name: string;
