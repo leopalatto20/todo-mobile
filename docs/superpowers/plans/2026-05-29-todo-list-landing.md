@@ -1,3 +1,41 @@
+# Todo List Landing Page Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Render authenticated todo list as main tab screen with loading skeletons, empty state, error handling, and priority-badged cards.
+
+**Architecture:** Single screen component (`app/(tabs)/todos.tsx`) driven by existing `useTodos` hook + `todoService.getAll()`. Four states via TanStack Query: loading (skeletons), empty (icon+text), error (message+retry), data (FlatList of cards).
+
+**Tech Stack:** Expo Router, TanStack Query v5, gluestack-ui (Box, Text, Heading, Button, Spinner, Skeleton, SkeletonText), FlatList, NativeWind
+
+---
+
+### Task 1: Install skeleton component
+
+**Files:**
+- Run command only
+
+- [ ] **Install gluestack-ui skeleton**
+
+Run:
+```bash
+npx gluestack-ui add skeleton --use-bun
+```
+
+Verify `components/ui/skeleton/` directory exists with `index.tsx` etc.
+
+---
+
+### Task 2: Rewrite todos screen with all states
+
+**Files:**
+- Modify: `app/(tabs)/todos.tsx` (full replace)
+
+- [ ] **Write the full todos screen**
+
+Replace entire content of `app/(tabs)/todos.tsx`:
+
+```tsx
 import { router, Stack } from "expo-router";
 import { useEffect } from "react";
 import { FlatList } from "react-native";
@@ -157,3 +195,44 @@ export default function TodosScreen() {
     </SafeAreaView>
   );
 }
+```
+
+- [ ] **Run lint to verify**
+
+```bash
+npm run lint
+```
+
+Expected: No errors (ignore `import/no-unresolved` for `@/*` — known Metro/ESLint issue).
+
+---
+
+### Task 3: Verify layout still renders tab
+
+**Files:**
+- Read: `app/(tabs)/_layout.tsx` (no changes needed — `todos` name matches)
+
+- [ ] **Confirm tab layout references `todos`**
+
+File already has `<Tabs.Screen name="todos" />`. No changes needed.
+
+---
+
+### Task 4: Self-review against spec
+
+- [ ] **Check spec coverage**
+
+| Spec requirement | Task |
+|---|---|
+| Auth loading (centered Spinner) | Task 2 — `if (isLoading)` block |
+| Todos loading (3 skeleton cards) | Task 2 — `isTodosLoading` branch, `SkeletonCard` component |
+| Empty state (icon + "No todos yet") | Task 2 — `!data || data.length === 0` branch |
+| Error state (message + "Try Again" refetch) | Task 2 — `isError` branch with `refetch()` |
+| FlatList of cards | Task 2 — `FlatList` with `TodoCard` |
+| Card: checkbox placeholder | Task 2 — `Box w-5 h-5 rounded border-2` |
+| Card: title (semibold, 15px) | Task 2 — `Heading size="sm"` |
+| Card: due date (muted, calendar icon) | Task 2 — `formatDueDate`, `isOverdue` red styling |
+| Card: priority badge (colored dot + label) | Task 2 — `priorityColor` + `priorityLabel` |
+| 12px radius, 14px padding, border, white bg | Task 2 — `rounded-xl`, `p-3.5`, `border`, `bg-white` |
+
+All covered. No gaps.
