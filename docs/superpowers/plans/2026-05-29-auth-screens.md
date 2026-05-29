@@ -13,6 +13,7 @@
 ### Task 1: Home screen
 
 **Files:**
+
 - Modify: `app/index.tsx`
 
 - [ ] **Step 1: Replace `app/index.tsx` with home screen**
@@ -66,6 +67,7 @@ Run: `npx expo start --ios` (or `--android`) and confirm home screen renders wit
 ### Task 2: Login screen
 
 **Files:**
+
 - Create: `app/login.tsx`
 
 - [ ] **Step 1: Create `app/login.tsx`**
@@ -158,6 +160,7 @@ Navigate to Login from Home, confirm form renders, back button works.
 ### Task 3: Signup screen
 
 **Files:**
+
 - Create: `app/signup.tsx`
 
 - [ ] **Step 1: Create `app/signup.tsx`**
@@ -260,6 +263,7 @@ Navigate to Signup from Home, confirm form renders, back button works.
 ### Task 4: Placeholder todos screen
 
 **Files:**
+
 - Create: `app/todos.tsx`
 
 - [ ] **Step 1: Create `app/todos.tsx`**

@@ -20,17 +20,22 @@ Auth guard remains: redirect to `/` if no user/token.
 ## Component States
 
 ### Loading
+
 Two loading layers:
+
 - **Auth loading** (initial Firebase check): keep current centered `Spinner` or use full-screen skeleton
 - **Todos loading** (TanStack Query): 3 skeleton cards using gluestack-ui `Skeleton` + `SkeletonText`. Each skeleton matches card dimensions (rounded corners, checkbox placeholder, title line, subtitle line).
 
 ### Empty
+
 Icon + "No todos yet" centered message when `data` is empty array.
 
 ### Error
+
 Error description from query + "Try Again" button that calls `refetch()`.
 
 ### Data
+
 Scrollable `FlatList` of todo cards.
 
 ## Card Layout

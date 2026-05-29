@@ -6,14 +6,14 @@
 
 ## Stack
 
-| Concern | Choice |
-|---|---|
-| HTTP client | Axios |
-| Server state | TanStack Query |
-| Auth state | Zustand + persist (AsyncStorage) |
-| Auth provider | Firebase Auth (email/password) |
-| Organization | Type-based (services/, hooks/, types/, stores/, utils/) |
-| Types | Manually written (no codegen) |
+| Concern       | Choice                                                  |
+| ------------- | ------------------------------------------------------- |
+| HTTP client   | Axios                                                   |
+| Server state  | TanStack Query                                          |
+| Auth state    | Zustand + persist (AsyncStorage)                        |
+| Auth provider | Firebase Auth (email/password)                          |
+| Organization  | Type-based (services/, hooks/, types/, stores/, utils/) |
+| Types         | Manually written (no codegen)                           |
 
 ## Directory structure
 
