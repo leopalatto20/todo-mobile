@@ -3,6 +3,8 @@ import { router, Stack } from "expo-router";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import { useSignIn } from "@/hooks/useAuth";
+import { useAuthStore } from "@/stores/authStore";
+import { userService } from "@/services/users";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -12,6 +14,8 @@ export default function LoginScreen() {
   const handleLogin = async () => {
     try {
       await signIn({ email, password });
+      const profile = await userService.getProfile();
+      useAuthStore.getState().setUser(profile as any);
       router.replace("/todos");
     } catch {
       // error is surfaced via the mutation's `error` state

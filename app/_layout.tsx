@@ -8,7 +8,7 @@ const queryClient = new QueryClient();
 
 export default function RootLayout() {
   return (
-    <GluestackUIProvider mode="dark">
+    <GluestackUIProvider mode="light">
       <QueryClientProvider client={queryClient}>
         <Stack />
       </QueryClientProvider>
