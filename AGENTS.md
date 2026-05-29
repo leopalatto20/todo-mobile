@@ -25,6 +25,23 @@ No test framework configured. No CI.
 - **Style**: React Native `StyleSheet` / inline styles — no Tailwind or styled-system.
 - **Splash screen**: configured via `expo-splash-screen` plugin in app.json.
 
+## Architecture
+
+```
+src/
+  config/     # Firebase app init
+  types/      # Manual interfaces matching OpenAPI spec
+  services/   # Axios CRUD functions per entity
+  stores/     # Zustand (auth with persist)
+  hooks/      # TanStack Query wrappers
+  utils/      # Date formatters, etc.
+```
+
+Data flow: **Screen → Hook (TanStack Query) → Service (Axios) → REST API**
+Auth: **Firebase Auth → Zustand store → Axios interceptor** (token via `useAuthStore.getState().token`)
+
+**Known lint issue:** `npm run lint` reports `import/no-unresolved` for `@/*` path aliases. This is an Expo ESLint config limitation — paths resolve correctly at runtime via Metro. `npx tsc` has the same limitation.
+
 ## Available skills
 
 Installed via `skills-lock.json` — load with `skill` tool:
