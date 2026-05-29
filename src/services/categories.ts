@@ -1,9 +1,6 @@
 import api from "./api";
-import type {
-  CategoryResponse,
-  CategoryWithTodosResponse,
-  CreateCategoryDto,
-} from "@/types/category";
+import type { CategoryResponse, CreateCategoryDto } from "@/types/category";
+import type { CategoryWithTodosResponse } from "@/types/todo";
 
 export const categoryService = {
   getAll: () =>
