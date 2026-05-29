@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { router, Stack } from "expo-router";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { useSignOut } from "@/hooks/useAuth";
 import { useAuthStore } from "@/stores/authStore";
@@ -10,11 +16,13 @@ export default function TodosScreen() {
   const isLoading = useAuthStore((s) => s.isLoading);
   const { mutateAsync: signOut, isPending } = useSignOut();
 
+  const token = useAuthStore((s) => s.token);
+
   useEffect(() => {
-    if (!isLoading && !user) {
+    if (!isLoading && !user && !token) {
       router.replace("/");
     }
-  }, [user, isLoading]);
+  }, [user, isLoading, token]);
 
   const handleSignOut = async () => {
     try {
@@ -27,16 +35,16 @@ export default function TodosScreen() {
 
   if (isLoading) {
     return (
-      <View className="flex-1 bg-background-0 justify-center items-center">
+      <SafeAreaView className="flex-1 bg-background-0 justify-center items-center">
         <ActivityIndicator size="large" color="#4F8EF7" />
-      </View>
+      </SafeAreaView>
     );
   }
 
   if (!user) return null;
 
   return (
-    <View className="flex-1 bg-background-0 px-6">
+    <SafeAreaView className="flex-1 bg-background-0 px-6">
       <Stack.Screen options={{ headerShown: false }} />
 
       <View className="flex-row justify-between items-center pt-4 pb-6">
@@ -61,6 +69,6 @@ export default function TodosScreen() {
           Todo list coming soon
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
