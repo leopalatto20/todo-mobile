@@ -17,6 +17,10 @@ export type TodoDetailResponse = TodoResponse & {
   comments: CommentResponse[];
 };
 
+export type CategoryWithTodosResponse = CategoryResponse & {
+  todos: TodoResponse[];
+};
+
 export type CreateTodoDto = {
   title: string;
   description: string;
