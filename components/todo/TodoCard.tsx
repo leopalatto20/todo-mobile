@@ -1,0 +1,36 @@
+import { Box } from "@/components/ui/box";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { PriorityBadge } from "./PriorityBadge";
+import type { TodoResponse } from "@/types/todo";
+import { formatDueDate, isOverdue } from "@/utils/date";
+
+export function TodoCard({ item }: { item: TodoResponse }) {
+  const overdue = isOverdue(item.dueDate) && !item.completed;
+
+  return (
+    <Box className="bg-white rounded-xl border border-outline-200 p-3.5 mb-3 flex-row items-center gap-3">
+      <Box className="w-5 h-5 rounded border-2 border-outline-300 bg-background-0" />
+
+      <Box className="flex-1">
+        <Heading size="sm" className="text-typography-950 font-semibold">
+          {item.title}
+        </Heading>
+        <Text size="xs" className="text-typography-400">
+          {item.description}
+        </Text>
+
+        <Box className="flex-row items-center gap-2 mt-1">
+          <Text
+            size="xs"
+            className={overdue ? "text-red-500" : "text-typography-400"}
+          >
+            {formatDueDate(item.dueDate)}
+          </Text>
+        </Box>
+      </Box>
+
+      <PriorityBadge priority={item.priority} />
+    </Box>
+  );
+}
