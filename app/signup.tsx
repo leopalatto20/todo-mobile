@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { router, Stack } from "expo-router";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Box } from "@/components/ui/box";
+import { Text } from "@/components/ui/text";
+import { Button, ButtonText } from "@/components/ui/button";
+import { Input, InputField } from "@/components/ui/input";
+import {
+  FormControl,
+  FormControlLabel,
+  FormControlLabelText,
+} from "@/components/ui/form-control";
 
 import { useRegister } from "@/hooks/useAuth";
 import { useAuthStore } from "@/stores/authStore";
@@ -24,49 +32,64 @@ export default function SignupScreen() {
   };
 
   return (
-    <View className="flex-1 bg-background-0 px-6 pt-6">
+    <Box className="flex-1 bg-background-0 px-6 pt-6">
       <Stack.Screen options={{ title: "Sign Up" }} />
 
-      <TextInput
-        className="bg-background-100 text-typography-950 py-3.5 px-4 rounded-xl text-base mb-4 border border-outline-100"
-        placeholder="Name"
-        placeholderTextColor="#666"
-        value={name}
-        onChangeText={setName}
-        autoCapitalize="words"
-      />
+      <FormControl className="mb-4">
+        <FormControlLabel className="mb-1">
+          <FormControlLabelText className="text-typography-700 text-sm">
+            Name
+          </FormControlLabelText>
+        </FormControlLabel>
+        <Input>
+          <InputField
+            placeholder="Name"
+            value={name}
+            onChangeText={setName}
+            autoCapitalize="words"
+          />
+        </Input>
+      </FormControl>
 
-      <TextInput
-        className="bg-background-100 text-typography-950 py-3.5 px-4 rounded-xl text-base mb-4 border border-outline-100"
-        placeholder="Email"
-        placeholderTextColor="#666"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
+      <FormControl className="mb-4">
+        <FormControlLabel className="mb-1">
+          <FormControlLabelText className="text-typography-700 text-sm">
+            Email
+          </FormControlLabelText>
+        </FormControlLabel>
+        <Input>
+          <InputField
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </Input>
+      </FormControl>
 
-      <TextInput
-        className="bg-background-100 text-typography-950 py-3.5 px-4 rounded-xl text-base mb-4 border border-outline-100"
-        placeholder="Password"
-        placeholderTextColor="#666"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+      <FormControl className="mb-4">
+        <FormControlLabel className="mb-1">
+          <FormControlLabelText className="text-typography-700 text-sm">
+            Password
+          </FormControlLabelText>
+        </FormControlLabel>
+        <Input>
+          <InputField
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+        </Input>
+      </FormControl>
 
-      <TouchableOpacity
-        className={`bg-primary-500 py-4 rounded-xl items-center mt-2 ${
-          isPending ? "opacity-60" : ""
-        }`}
-        onPress={handleSignup}
-        disabled={isPending}
-      >
-        <Text className="text-primary-950 text-base font-semibold">
-          {isPending ? "Creating account…" : "Create Account"}
-        </Text>
-      </TouchableOpacity>
+      <Button className="mt-2" onPress={handleSignup} isDisabled={isPending}>
+        <ButtonText>
+          {isPending ? "Creating account\u2026" : "Create Account"}
+        </ButtonText>
+      </Button>
 
       {error && (
         <Text className="text-error-500 text-center mt-4">
@@ -74,15 +97,16 @@ export default function SignupScreen() {
         </Text>
       )}
 
-      <TouchableOpacity
-        className="mt-8 items-center"
+      <Button
+        variant="link"
+        className="mt-8"
         onPress={() => router.push("/login")}
       >
-        <Text className="text-typography-500 text-sm">
+        <ButtonText className="text-typography-500 text-sm">
           Already have an account?{" "}
           <Text className="text-primary-500 font-semibold">Log in</Text>
-        </Text>
-      </TouchableOpacity>
-    </View>
+        </ButtonText>
+      </Button>
+    </Box>
   );
 }

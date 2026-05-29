@@ -1,7 +1,12 @@
 import { router, Stack } from "expo-router";
 import { useEffect } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Box } from "@/components/ui/box";
+import { VStack } from "@/components/ui/vstack";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { Button, ButtonText } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { useSignOut } from "@/hooks/useAuth";
 import { useAuthStore } from "@/stores/authStore";
 
@@ -30,7 +35,7 @@ export default function TodosScreen() {
   if (isLoading) {
     return (
       <SafeAreaView className="flex-1 bg-background-0 justify-center items-center">
-        <ActivityIndicator size="large" color="#4F8EF7" />
+        <Spinner size="large" />
       </SafeAreaView>
     );
   }
@@ -41,28 +46,27 @@ export default function TodosScreen() {
     <SafeAreaView className="flex-1 bg-background-0 px-6">
       <Stack.Screen options={{ headerShown: false }} />
 
-      <View className="flex-row justify-between items-center pt-4 pb-6">
-        <Text className="text-3xl font-bold text-typography-950">
+      <Box className="flex-row justify-between items-center pt-4 pb-6">
+        <Heading size="xl" className="font-bold text-typography-950">
           Your Todos
-        </Text>
-        <TouchableOpacity
-          className={`py-2 px-4 rounded-lg border border-error-500 ${
-            isPending ? "opacity-60" : ""
-          }`}
+        </Heading>
+        <Button
+          variant="outline"
+          action="negative"
           onPress={handleSignOut}
-          disabled={isPending}
+          isDisabled={isPending}
         >
-          <Text className="text-error-500 text-sm font-medium">
+          <ButtonText>
             {isPending ? "Signing out\u2026" : "Sign Out"}
-          </Text>
-        </TouchableOpacity>
-      </View>
+          </ButtonText>
+        </Button>
+      </Box>
 
-      <View className="flex-1 justify-center items-center">
-        <Text className="text-typography-500 text-base">
+      <VStack className="flex-1 justify-center items-center">
+        <Text size="md" className="text-typography-500">
           Todo list coming soon
         </Text>
-      </View>
+      </VStack>
     </SafeAreaView>
   );
 }
