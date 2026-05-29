@@ -1,38 +1,32 @@
 import { router, Stack } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Box } from "@/components/ui/box";
+import { VStack } from "@/components/ui/vstack";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { Button, ButtonText } from "@/components/ui/button";
 
 export default function HomeScreen() {
   return (
-    <View className="flex-1 bg-background-0 justify-center px-6">
+    <Box className="flex-1 bg-background-0 justify-center px-6">
       <Stack.Screen options={{ headerShown: false }} />
-      <View className="items-center">
-        <Text className="text-5xl font-bold text-typography-950 mb-2">
+      <VStack className="items-center">
+        <Heading size="4xl" className="font-bold text-typography-950 mb-2">
           Todo App
-        </Text>
-        <Text className="text-lg text-typography-500">
+        </Heading>
+        <Text size="lg" className="text-typography-500">
           Stay organized, get things done
         </Text>
-      </View>
+      </VStack>
 
-      <View className="mt-12 gap-3">
-        <TouchableOpacity
-          className="bg-primary-500 py-4 rounded-xl items-center"
-          onPress={() => router.push("/login")}
-        >
-          <Text className="text-primary-950 text-base font-semibold">
-            Login
-          </Text>
-        </TouchableOpacity>
+      <VStack className="mt-12" space="md">
+        <Button onPress={() => router.push("/login")}>
+          <ButtonText>Login</ButtonText>
+        </Button>
 
-        <TouchableOpacity
-          className="border border-primary-500 py-4 rounded-xl items-center"
-          onPress={() => router.push("/signup")}
-        >
-          <Text className="text-primary-500 text-base font-semibold">
-            Sign Up
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+        <Button variant="outline" onPress={() => router.push("/signup")}>
+          <ButtonText>Sign Up</ButtonText>
+        </Button>
+      </VStack>
+    </Box>
   );
 }
