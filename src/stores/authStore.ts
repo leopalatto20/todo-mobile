@@ -26,7 +26,7 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       token: null,
-      isLoading: false,
+      isLoading: true,
       firebaseUser: null,
 
       signIn: async (email: string, password: string) => {
@@ -37,7 +37,7 @@ export const useAuthStore = create<AuthState>()(
         );
         const token = await credential.user.getIdToken();
         set({
-          firebaseUser: credential.user as unknown as FirebaseUser,
+          firebaseUser: credential.user,
           token,
         });
       },
@@ -61,7 +61,8 @@ export const useAuthStore = create<AuthState>()(
   ),
 );
 
-// Listen for Firebase auth state changes
+// Listens for Firebase auth state changes. The `user` field (backend User object)
+// is populated separately by fetching GET /users/me using the stored token.
 onAuthStateChanged(auth, async (firebaseUser) => {
   if (firebaseUser) {
     const token = await firebaseUser.getIdToken();
