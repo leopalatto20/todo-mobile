@@ -8,5 +8,9 @@ export function formatDueDate(dateString: string): string {
 }
 
 export function isOverdue(dateString: string): boolean {
-  return new Date(dateString) < new Date();
+  const due = new Date(dateString);
+  due.setHours(0, 0, 0, 0);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return due < today;
 }
