@@ -85,14 +85,14 @@ Screen → useSignIn / useRegister / useSignOut (TanStack Query mutation)
 
 ## Files to Create
 
-| File | Purpose |
-|---|---|
-| `app/login.tsx` | Login form screen |
-| `app/signup.tsx` | Signup form screen |
-| `app/todos.tsx` | After-auth placeholder |
+| File             | Purpose                |
+| ---------------- | ---------------------- |
+| `app/login.tsx`  | Login form screen      |
+| `app/signup.tsx` | Signup form screen     |
+| `app/todos.tsx`  | After-auth placeholder |
 
 ## Files to Modify
 
-| File | Change |
-|---|---|
+| File            | Change                                      |
+| --------------- | ------------------------------------------- |
 | `app/index.tsx` | Replace placeholder with home screen design |

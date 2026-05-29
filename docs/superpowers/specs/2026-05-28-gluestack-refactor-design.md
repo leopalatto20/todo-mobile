@@ -24,16 +24,16 @@ Each ships its own TypeScript types and tailwind-compatible classes.
 
 ## Component mapping
 
-| RN Primitive | Gluestack Replacement | Package |
-|---|---|---|
-| `View` (container) | `Box` | `@gluestack-ui/box` |
-| `View` (flex column) | `VStack` | `@gluestack-ui/vstack` |
-| `Text` (body) | `Text` | `@gluestack-ui/text` |
-| `Text` (title) | `Heading` | `@gluestack-ui/heading` |
-| `TouchableOpacity` | `Button` + `ButtonText` | `@gluestack-ui/button` |
-| `TextInput` | `Input` + `InputField` | `@gluestack-ui/input` |
-| label/error wrappers | `FormControl` + family | `@gluestack-ui/form-control` |
-| `ActivityIndicator` | `Spinner` | `@gluestack-ui/spinner` |
+| RN Primitive         | Gluestack Replacement   | Package                      |
+| -------------------- | ----------------------- | ---------------------------- |
+| `View` (container)   | `Box`                   | `@gluestack-ui/box`          |
+| `View` (flex column) | `VStack`                | `@gluestack-ui/vstack`       |
+| `Text` (body)        | `Text`                  | `@gluestack-ui/text`         |
+| `Text` (title)       | `Heading`               | `@gluestack-ui/heading`      |
+| `TouchableOpacity`   | `Button` + `ButtonText` | `@gluestack-ui/button`       |
+| `TextInput`          | `Input` + `InputField`  | `@gluestack-ui/input`        |
+| label/error wrappers | `FormControl` + family  | `@gluestack-ui/form-control` |
+| `ActivityIndicator`  | `Spinner`               | `@gluestack-ui/spinner`      |
 
 ## Screen refactors
 

@@ -13,11 +13,13 @@
 ### Task 1: Install skeleton component
 
 **Files:**
+
 - Run command only
 
 - [ ] **Install gluestack-ui skeleton**
 
 Run:
+
 ```bash
 npx gluestack-ui add skeleton --use-bun
 ```
@@ -29,6 +31,7 @@ Verify `components/ui/skeleton/` directory exists with `index.tsx` etc.
 ### Task 2: Rewrite todos screen with all states
 
 **Files:**
+
 - Modify: `app/(tabs)/todos.tsx` (full replace)
 
 - [ ] **Write the full todos screen**
@@ -88,7 +91,9 @@ function TodoCard({ item }: { item: TodoResponse }) {
       </Box>
 
       <Box className="flex-row items-center gap-1.5">
-        <Box className={`w-2.5 h-2.5 rounded-full ${priorityColor[item.priority]}`} />
+        <Box
+          className={`w-2.5 h-2.5 rounded-full ${priorityColor[item.priority]}`}
+        />
         <Text size="xs" className="text-typography-500">
           {priorityLabel[item.priority]}
         </Text>
@@ -114,7 +119,13 @@ export default function TodosScreen() {
   const isLoading = useAuthStore((s) => s.isLoading);
   const token = useAuthStore((s) => s.token);
   const { mutateAsync: signOut, isPending } = useSignOut();
-  const { data, isLoading: isTodosLoading, isError, error, refetch } = useTodos();
+  const {
+    data,
+    isLoading: isTodosLoading,
+    isError,
+    error,
+    refetch,
+  } = useTodos();
 
   useEffect(() => {
     if (!isLoading && !user && !token) {
@@ -210,6 +221,7 @@ Expected: No errors (ignore `import/no-unresolved` for `@/*` — known Metro/ESL
 ### Task 3: Verify layout still renders tab
 
 **Files:**
+
 - Read: `app/(tabs)/_layout.tsx` (no changes needed — `todos` name matches)
 
 - [ ] **Confirm tab layout references `todos`**
@@ -222,17 +234,17 @@ File already has `<Tabs.Screen name="todos" />`. No changes needed.
 
 - [ ] **Check spec coverage**
 
-| Spec requirement | Task |
-|---|---|
-| Auth loading (centered Spinner) | Task 2 — `if (isLoading)` block |
-| Todos loading (3 skeleton cards) | Task 2 — `isTodosLoading` branch, `SkeletonCard` component |
-| Empty state (icon + "No todos yet") | Task 2 — `!data || data.length === 0` branch |
-| Error state (message + "Try Again" refetch) | Task 2 — `isError` branch with `refetch()` |
-| FlatList of cards | Task 2 — `FlatList` with `TodoCard` |
-| Card: checkbox placeholder | Task 2 — `Box w-5 h-5 rounded border-2` |
-| Card: title (semibold, 15px) | Task 2 — `Heading size="sm"` |
-| Card: due date (muted, calendar icon) | Task 2 — `formatDueDate`, `isOverdue` red styling |
-| Card: priority badge (colored dot + label) | Task 2 — `priorityColor` + `priorityLabel` |
-| 12px radius, 14px padding, border, white bg | Task 2 — `rounded-xl`, `p-3.5`, `border`, `bg-white` |
+| Spec requirement                            | Task                                                       |
+| ------------------------------------------- | ---------------------------------------------------------- | --- | ------------------------- |
+| Auth loading (centered Spinner)             | Task 2 — `if (isLoading)` block                            |
+| Todos loading (3 skeleton cards)            | Task 2 — `isTodosLoading` branch, `SkeletonCard` component |
+| Empty state (icon + "No todos yet")         | Task 2 — `!data                                            |     | data.length === 0` branch |
+| Error state (message + "Try Again" refetch) | Task 2 — `isError` branch with `refetch()`                 |
+| FlatList of cards                           | Task 2 — `FlatList` with `TodoCard`                        |
+| Card: checkbox placeholder                  | Task 2 — `Box w-5 h-5 rounded border-2`                    |
+| Card: title (semibold, 15px)                | Task 2 — `Heading size="sm"`                               |
+| Card: due date (muted, calendar icon)       | Task 2 — `formatDueDate`, `isOverdue` red styling          |
+| Card: priority badge (colored dot + label)  | Task 2 — `priorityColor` + `priorityLabel`                 |
+| 12px radius, 14px padding, border, white bg | Task 2 — `rounded-xl`, `p-3.5`, `border`, `bg-white`       |
 
 All covered. No gaps.

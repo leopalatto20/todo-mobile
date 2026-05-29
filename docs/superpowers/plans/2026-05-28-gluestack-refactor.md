@@ -13,11 +13,13 @@
 ### Task 1: Install gluestack component packages
 
 **Files:**
+
 - Modify: `package.json`
 
 - [ ] **Install all 8 packages**
 
 Run:
+
 ```bash
 bun add @gluestack-ui/button
 bun add @gluestack-ui/input
@@ -43,6 +45,7 @@ git commit -m "feat: install gluestack-ui component packages"
 ### Task 2: Refactor `app/index.tsx` (landing page)
 
 **Files:**
+
 - Modify: `app/index.tsx`
 
 Current: Uses `View`, `Text`, `TouchableOpacity` from `react-native`. Target: `VStack`, `Heading`, `Text`, `Button`, `ButtonText` from gluestack.
@@ -76,10 +79,7 @@ export default function HomeScreen() {
           </ButtonText>
         </Button>
 
-        <Button
-          variant="outline"
-          onPress={() => router.push("/signup")}
-        >
+        <Button variant="outline" onPress={() => router.push("/signup")}>
           <ButtonText className="text-primary-500 text-base font-semibold">
             Sign Up
           </ButtonText>
@@ -102,6 +102,7 @@ git commit -m "refactor: replace RN primitives with gluestack components in land
 ### Task 3: Refactor `app/login.tsx` (login page)
 
 **Files:**
+
 - Modify: `app/login.tsx`
 
 Current: `View`, `Text`, `TextInput`, `TouchableOpacity`. Target: `Box`, `FormControl` + `FormControlLabel` + `FormControlError`, `Input` + `InputField`, `Button` + `ButtonText`, `Text`.
@@ -179,11 +180,7 @@ export default function LoginScreen() {
         </Input>
       </FormControl>
 
-      <Button
-        className="mt-2"
-        onPress={handleLogin}
-        isDisabled={isPending}
-      >
+      <Button className="mt-2" onPress={handleLogin} isDisabled={isPending}>
         <ButtonText className="text-primary-950 text-base font-semibold">
           {isPending ? "Signing in\u2026" : "Sign In"}
         </ButtonText>
@@ -222,6 +219,7 @@ git commit -m "refactor: replace RN primitives with gluestack components in logi
 ### Task 4: Refactor `app/signup.tsx` (registration page)
 
 **Files:**
+
 - Modify: `app/signup.tsx`
 
 Same pattern as login with 3 fields (name, email, password).
@@ -316,11 +314,7 @@ export default function SignupScreen() {
         </Input>
       </FormControl>
 
-      <Button
-        className="mt-2"
-        onPress={handleSignup}
-        isDisabled={isPending}
-      >
+      <Button className="mt-2" onPress={handleSignup} isDisabled={isPending}>
         <ButtonText className="text-primary-950 text-base font-semibold">
           {isPending ? "Creating account\u2026" : "Create Account"}
         </ButtonText>
@@ -359,6 +353,7 @@ git commit -m "refactor: replace RN primitives with gluestack components in sign
 ### Task 5: Refactor `app/todos.tsx` (todos list)
 
 **Files:**
+
 - Modify: `app/todos.tsx`
 
 Current: `SafeAreaView`, `View`, `Text`, `TouchableOpacity`, `ActivityIndicator`. Target: `Box`, `VStack`, `Heading`, `Text`, `Button` + `ButtonText`, `Spinner`. Keep `SafeAreaView` from `react-native-safe-area-context`.

@@ -13,6 +13,7 @@
 ### Task 1: Install dependency + create directory structure
 
 **Files:**
+
 - Create: `src/types/`, `src/services/`, `src/hooks/`, `src/stores/`, `src/utils/`, `src/config/` (directories)
 
 - [ ] **Step 1: Install AsyncStorage**
@@ -22,6 +23,7 @@ Run: `bun add @react-native-async-storage/async-storage`
 - [ ] **Step 2: Create directory scaffolding**
 
 Run:
+
 ```bash
 mkdir -p src/types src/services src/hooks src/stores src/utils src/config
 ```
@@ -37,6 +39,7 @@ git add . && git commit -m "chore: scaffold src directory structure"
 ### Task 2: Create type files
 
 **Files:**
+
 - Create: `src/types/todo.ts`
 - Create: `src/types/category.ts`
 - Create: `src/types/user.ts`
@@ -44,7 +47,7 @@ git add . && git commit -m "chore: scaffold src directory structure"
 
 - [ ] **Step 1: Create `src/types/todo.ts`**
 
-```ts
+````ts
 import type { CategoryResponse } from "./category";
 import type { CommentResponse } from "./comment";
 
@@ -79,7 +82,7 @@ export type CreateCategoryDto = {
   description: string;
   color: string;
 };
-```
+````
 
 - [ ] **Step 3: Create `src/types/user.ts`**
 
@@ -147,6 +150,7 @@ git add src/types/ && git commit -m "feat: add manual API types from OpenAPI spe
 ### Task 3: Create Firebase config
 
 **Files:**
+
 - Create: `src/config/firebase.ts`
 
 - [ ] **Step 1: Create `src/config/firebase.ts`**
@@ -187,6 +191,7 @@ git add src/config/ && git commit -m "feat: add Firebase config with AsyncStorag
 ### Task 4: Create Axios instance with auth interceptor
 
 **Files:**
+
 - Create: `src/services/api.ts`
 
 - [ ] **Step 1: Create `src/services/api.ts`**
@@ -232,6 +237,7 @@ git add src/services/api.ts && git commit -m "feat: add Axios instance with Fire
 ### Task 5: Create service files
 
 **Files:**
+
 - Create: `src/services/todos.ts`
 - Create: `src/services/categories.ts`
 - Create: `src/services/users.ts`
@@ -274,8 +280,7 @@ import type {
 } from "@/types/category";
 
 export const categoryService = {
-  getAll: () =>
-    api.get<CategoryResponse>("/categories").then((r) => r.data),
+  getAll: () => api.get<CategoryResponse>("/categories").then((r) => r.data),
 
   getWithTodos: () =>
     api
@@ -315,6 +320,7 @@ git add src/services/ && git commit -m "feat: add todo, category, user API servi
 ### Task 6: Create Zustand auth store
 
 **Files:**
+
 - Create: `src/stores/authStore.ts`
 
 - [ ] **Step 1: Create `src/stores/authStore.ts`**
@@ -410,6 +416,7 @@ git add src/stores/ && git commit -m "feat: add Zustand auth store with Firebase
 ### Task 7: Wire TanStack Query provider in root layout
 
 **Files:**
+
 - Modify: `app/_layout.tsx`
 
 - [ ] **Step 1: Update `app/_layout.tsx` to wrap with QueryClientProvider**
@@ -445,6 +452,7 @@ git add app/_layout.tsx && git commit -m "feat: add TanStack Query provider to r
 ### Task 8: Create hook files
 
 **Files:**
+
 - Create: `src/hooks/useTodos.ts`
 - Create: `src/hooks/useCategories.ts`
 - Create: `src/hooks/useAuth.ts`
@@ -545,13 +553,8 @@ import type { CreateUserDto } from "@/types/user";
 export function useSignIn() {
   const signIn = useAuthStore((s) => s.signIn);
   return useMutation({
-    mutationFn: ({
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    }) => signIn(email, password),
+    mutationFn: ({ email, password }: { email: string; password: string }) =>
+      signIn(email, password),
   });
 }
 
@@ -593,6 +596,7 @@ git add src/hooks/ && git commit -m "feat: add TanStack Query hooks for todos, c
 ### Task 9: Create utility functions
 
 **Files:**
+
 - Create: `src/utils/date.ts`
 
 - [ ] **Step 1: Create `src/utils/date.ts`**
@@ -603,7 +607,8 @@ export function formatDueDate(dateString: string): string {
   return date.toLocaleDateString(undefined, {
     month: "short",
     day: "numeric",
-    year: date.getFullYear() !== new Date().getFullYear() ? "numeric" : undefined,
+    year:
+      date.getFullYear() !== new Date().getFullYear() ? "numeric" : undefined,
   });
 }
 
@@ -636,6 +641,7 @@ Expected: no errors
 
 Run: `ls -R src/`
 Expected output:
+
 ```
 src/
   config/

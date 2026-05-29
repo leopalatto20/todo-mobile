@@ -2,6 +2,11 @@ import { router, Stack } from "expo-router";
 import { useEffect } from "react";
 import { FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { CreateTodoSheet } from "@/components/todo/CreateTodoSheet";
+import { EmptyTodoState } from "@/components/todo/EmptyTodoState";
+import { ErrorTodoState } from "@/components/todo/ErrorTodoState";
+import { TodoCard } from "@/components/todo/TodoCard";
+import { TodoCardSkeleton } from "@/components/todo/TodoCardSkeleton";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
@@ -10,11 +15,6 @@ import { VStack } from "@/components/ui/vstack";
 import { useSignOut } from "@/hooks/useAuth";
 import { useTodos } from "@/hooks/useTodos";
 import { useAuthStore } from "@/stores/authStore";
-import { TodoCard } from "@/components/todo/TodoCard";
-import { TodoCardSkeleton } from "@/components/todo/TodoCardSkeleton";
-import { EmptyTodoState } from "@/components/todo/EmptyTodoState";
-import { ErrorTodoState } from "@/components/todo/ErrorTodoState";
-import { CreateTodoSheet } from "@/components/todo/CreateTodoSheet";
 
 export default function TodosScreen() {
   const user = useAuthStore((s) => s.user);
