@@ -69,9 +69,7 @@ export default function LoginScreen() {
       </FormControl>
 
       <Button className="mt-2" onPress={handleLogin} isDisabled={isPending}>
-        <ButtonText>
-          {isPending ? "Signing in\u2026" : "Sign In"}
-        </ButtonText>
+        <ButtonText>{isPending ? "Signing in\u2026" : "Sign In"}</ButtonText>
       </Button>
 
       {error && (
