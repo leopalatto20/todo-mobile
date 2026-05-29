@@ -20,6 +20,7 @@ import { useCategories } from "@/hooks/useCategories";
 import { useCreateTodo } from "@/hooks/useTodos";
 import type { TodoPriority } from "@/types/todo";
 import { priorityColor, priorityLabel } from "@/utils/todo";
+import { resolveColor } from "@/utils/colors";
 
 const priorities: TodoPriority[] = ["LOW", "MEDIUM", "HIGH"];
 
@@ -205,7 +206,7 @@ export function CreateTodoSheet() {
                             }`}
                             style={
                               isSelected
-                                ? { backgroundColor: cat.color }
+                                ? { backgroundColor: resolveColor(cat.color) }
                                 : undefined
                             }
                             onPress={() => toggleCategory(cat.id)}

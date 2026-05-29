@@ -4,6 +4,7 @@ export default function TabLayout() {
   return (
     <Tabs>
       <Tabs.Screen name="todos" options={{ title: "Todos" }} />
+      <Tabs.Screen name="categories" options={{ title: "Categories" }} />
     </Tabs>
   );
 }
