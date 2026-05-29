@@ -4,6 +4,7 @@ import { Text } from "@/components/ui/text";
 import { PriorityBadge } from "./PriorityBadge";
 import type { TodoResponse } from "@/types/todo";
 import { formatDueDate, isOverdue } from "@/utils/date";
+import { resolveColor } from "@/utils/colors";
 
 export function TodoCard({ item }: { item: TodoResponse }) {
   const overdue = isOverdue(item.dueDate) && !item.completed;
@@ -25,7 +26,7 @@ export function TodoCard({ item }: { item: TodoResponse }) {
             <Box
               key={cat.id}
               className="px-2 py-0.5 rounded-full"
-              style={{ backgroundColor: cat.color }}
+              style={{ backgroundColor: resolveColor(cat.color) }}
             >
               <Text size="xs" className="text-white font-medium">
                 {cat.name}

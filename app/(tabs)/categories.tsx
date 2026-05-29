@@ -1,0 +1,55 @@
+import { Stack } from "expo-router";
+import { FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Box } from "@/components/ui/box";
+import { Text } from "@/components/ui/text";
+import { VStack } from "@/components/ui/vstack";
+import { useCategories } from "@/hooks/useCategories";
+import { CategoryCard } from "@/components/category/CategoryCard";
+import { CreateCategorySheet } from "@/components/category/CreateCategorySheet";
+
+export default function CategoriesScreen() {
+  const { data, isLoading, isError, error } = useCategories();
+
+  return (
+    <SafeAreaView className="flex-1 bg-background-0">
+      <Stack.Screen options={{ headerShown: false }} />
+
+      <Box className="flex-1 px-6 relative">
+        <Box className="pt-4 pb-6">
+          <Text className="text-2xl font-bold text-typography-950">
+            Categories
+          </Text>
+        </Box>
+
+        {isLoading ? (
+          <VStack className="flex-1" />
+        ) : isError ? (
+          <VStack className="flex-1 justify-center items-center gap-4">
+            <Text size="md" className="text-typography-500 text-center">
+              {error?.message || "Something went wrong"}
+            </Text>
+          </VStack>
+        ) : !data || data.length === 0 ? (
+          <VStack className="flex-1 justify-center items-center gap-2">
+            <Text size="2xl">🏷️</Text>
+            <Text size="md" className="text-typography-500">
+              No categories yet
+            </Text>
+          </VStack>
+        ) : (
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <CategoryCard item={item} />}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 80 }}
+            className="flex-1"
+          />
+        )}
+
+        <CreateCategorySheet />
+      </Box>
+    </SafeAreaView>
+  );
+}

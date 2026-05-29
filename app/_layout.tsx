@@ -9,12 +9,12 @@ const queryClient = new QueryClient();
 
 export default function RootLayout() {
   return (
-    <SafeAreaProvider>
-      <GluestackUIProvider mode="light">
+    <GluestackUIProvider mode="light">
+      <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
           <Stack />
         </QueryClientProvider>
-      </GluestackUIProvider>
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+    </GluestackUIProvider>
   );
 }
