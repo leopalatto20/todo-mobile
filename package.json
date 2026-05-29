@@ -13,8 +13,13 @@
   "dependencies": {
     "@expo/html-elements": "^0.10.1",
     "@expo/vector-icons": "^15.0.3",
+    "@gluestack-ui/button": "^1.0.14",
     "@gluestack-ui/core": "^3.0.10",
+    "@gluestack-ui/form-control": "^0.1.19",
+    "@gluestack-ui/input": "^0.1.38",
+    "@gluestack-ui/spinner": "^0.1.15",
     "@gluestack-ui/utils": "^3.0.11",
+    "@gluestack-ui/vstack": "^0.1.16",
     "@legendapp/motion": "^2.3.0",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.4.0",

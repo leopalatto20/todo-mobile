@@ -26,7 +26,7 @@ services/   # Axios CRUD per entity. api.ts creates client with auth interceptor
 stores/     # Zustand with persist (AsyncStorage). Single authStore
 hooks/      # TanStack Query v5 wrappers around services
 utils/      # Date formatters, etc.
-components/ # ui/gluestack-ui-provider/ — GluestackUIProvider wrapping NativeWind
+components/ui/ # gluestack-ui components (Box, Text, Heading, Button, Input, etc.)
 ```
 
 Entry: `expo-router/entry` (package.json `main`).
@@ -44,6 +44,8 @@ Env vars: `EXPO_PUBLIC_*` prefix. Copy `.env.example` to `.env`.
 **NativeWind v4** with `className` props and Tailwind utilities. Import `@/global.css` in root layout. All screens use `className` — never `StyleSheet.create`.
 
 **GluestackUI v3** (`@gluestack-ui/core`) wraps the app via `<GluestackUIProvider>` in `app/_layout.tsx`. Custom RGB color tokens defined in `tailwind.config.js` (`bg-background-0`, `text-typography-950`, `bg-primary-500`, etc.).
+
+**Gluestack components** are installed via `npx gluestack-ui add <name>` (scaffolds local files at `components/ui/<name>/` and installs deps). Import from `@/components/ui/<name>`. Currently installed: `box`, `text`, `heading`, `button`, `input`, `form-control`, `spinner`, `vstack`. When adding a new UI component, always use `npx gluestack-ui add <name> --use-bun`. Never hand-roll common interactive components that gluestack provides.
 
 Metro: wrapped with `withNativeWind(config, { input: './global.css' })`.
 
