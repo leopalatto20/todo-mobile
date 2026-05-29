@@ -1,3 +1,6 @@
+import DateTimePicker, {
+  type DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -15,8 +18,8 @@ import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { useCategories } from "@/hooks/useCategories";
 import { useCreateTodo } from "@/hooks/useTodos";
-import { priorityColor, priorityLabel } from "@/utils/todo";
 import type { TodoPriority } from "@/types/todo";
+import { priorityColor, priorityLabel } from "@/utils/todo";
 
 const priorities: TodoPriority[] = ["LOW", "MEDIUM", "HIGH"];
 
@@ -25,16 +28,15 @@ export function CreateTodoSheet() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState<TodoPriority>("MEDIUM");
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
   const { mutateAsync: createTodo, isPending } = useCreateTodo();
   const { data: categories } = useCategories();
 
   const toggleCategory = (id: string) => {
     setSelectedCategoryIds((prev) =>
-      prev.includes(id)
-        ? prev.filter((c) => c !== id)
-        : [...prev, id]
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id],
     );
   };
 
@@ -42,7 +44,7 @@ export function CreateTodoSheet() {
     setTitle("");
     setDescription("");
     setPriority("MEDIUM");
-    setDueDate("");
+    setDueDate(undefined);
     setSelectedCategoryIds([]);
   };
 
@@ -54,8 +56,8 @@ export function CreateTodoSheet() {
         description: description.trim(),
         priority,
         dueDate: dueDate
-          ? new Date(dueDate).toISOString()
-          : new Date().toISOString(),
+          ? dueDate.toISOString().replace(/\.\d{3}Z$/, "")
+          : new Date().toISOString().replace(/\.\d{3}Z$/, ""),
         categories: selectedCategoryIds,
       });
       reset();
@@ -84,11 +86,18 @@ export function CreateTodoSheet() {
           className="flex-1"
           behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
-          <Pressable className="flex-1 bg-black/40" onPress={() => setIsOpen(false)} />
+          <Pressable
+            className="flex-1 bg-black/40"
+            onPress={() => setIsOpen(false)}
+          />
           <View className="bg-white rounded-t-2xl max-h-[85%]">
             <ScrollView
               keyboardShouldPersistTaps="handled"
-              contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 24, paddingBottom: 40 }}
+              contentContainerStyle={{
+                paddingHorizontal: 24,
+                paddingTop: 24,
+                paddingBottom: 40,
+              }}
             >
               <Heading size="lg" className="mb-5">
                 New Todo
@@ -112,13 +121,37 @@ export function CreateTodoSheet() {
                   />
                 </Input>
 
-                <Input variant="outline" size="md">
-                  <InputField
-                    placeholder="Due date (YYYY-MM-DD)"
-                    value={dueDate}
-                    onChangeText={setDueDate}
+                <Pressable
+                  onPress={() => setShowDatePicker(true)}
+                  className="border border-outline-200 rounded px-3 py-2.5"
+                >
+                  <Text
+                    className={
+                      dueDate ? "text-typography-900" : "text-typography-500"
+                    }
+                  >
+                    {dueDate
+                      ? dueDate.toLocaleDateString(undefined, {
+                          weekday: "short",
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })
+                      : "Pick due date"}
+                  </Text>
+                </Pressable>
+
+                {showDatePicker && (
+                  <DateTimePicker
+                    value={dueDate ?? new Date()}
+                    mode="date"
+                    display="default"
+                    onChange={(_event: DateTimePickerEvent, date?: Date) => {
+                      setShowDatePicker(false);
+                      if (date) setDueDate(date);
+                    }}
                   />
-                </Input>
+                )}
 
                 <Text size="sm" className="text-typography-500 font-medium">
                   Priority
@@ -153,7 +186,10 @@ export function CreateTodoSheet() {
 
                 {categories && categories.length > 0 && (
                   <>
-                    <Text size="sm" className="text-typography-500 font-medium mt-1">
+                    <Text
+                      size="sm"
+                      className="text-typography-500 font-medium mt-1"
+                    >
                       Categories
                     </Text>
                     <Box className="flex-row flex-wrap gap-2">
@@ -211,7 +247,9 @@ export function CreateTodoSheet() {
                     isDisabled={!title.trim() || isPending}
                     onPress={handleSubmit}
                   >
-                    <ButtonText>{isPending ? "Saving\u2026" : "Save"}</ButtonText>
+                    <ButtonText>
+                      {isPending ? "Saving\u2026" : "Save"}
+                    </ButtonText>
                   </Button>
                 </Box>
               </VStack>
