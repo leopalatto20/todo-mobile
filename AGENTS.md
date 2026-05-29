@@ -28,13 +28,12 @@ No test framework configured. No CI.
 ## Architecture
 
 ```
-src/
-  config/     # Firebase app init
-  types/      # Manual interfaces matching OpenAPI spec
-  services/   # Axios CRUD functions per entity
-  stores/     # Zustand (auth with persist)
-  hooks/      # TanStack Query wrappers
-  utils/      # Date formatters, etc.
+config/     # Firebase app init
+types/      # Manual interfaces matching OpenAPI spec
+services/   # Axios CRUD functions per entity
+stores/     # Zustand (auth with persist)
+hooks/      # TanStack Query wrappers
+utils/      # Date formatters, etc.
 ```
 
 Data flow: **Screen → Hook (TanStack Query) → Service (Axios) → REST API**
