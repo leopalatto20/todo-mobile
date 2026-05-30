@@ -13,6 +13,7 @@
 ### Task 1: Add search method to todoService
 
 **Files:**
+
 - Modify: `services/todos.ts` (add `search` method)
 
 - [ ] **Step 1: Add search method**
@@ -47,11 +48,13 @@ git commit -m "feat: add search method to todoService"
 ### Task 2: Add useSearchTodos hook
 
 **Files:**
+
 - Modify: `hooks/useTodos.ts`
 
 - [ ] **Step 1: Add search query key and hook**
 
 After existing `todoKeys` definition (before `useTodos`):
+
 ```ts
 // In todoKeys:
 search: (
@@ -61,6 +64,7 @@ search: (
 ```
 
 After `useDeleteTodo` (at end of file):
+
 ```ts
 export function useSearchTodos(
   query: string,
@@ -91,6 +95,7 @@ git commit -m "feat: add useSearchTodos hook with search query key"
 ### Task 3: Create search screen
 
 **Files:**
+
 - Create: `app/(tabs)/search.tsx`
 
 - [ ] **Step 1: Create search screen**
@@ -202,9 +207,7 @@ export default function SearchScreen() {
                 >
                   <Text
                     size="sm"
-                    className={
-                      isActive ? "text-white" : "text-typography-600"
-                    }
+                    className={isActive ? "text-white" : "text-typography-600"}
                   >
                     {label}
                   </Text>
@@ -229,9 +232,7 @@ export default function SearchScreen() {
                 >
                   <Text
                     size="sm"
-                    className={
-                      isActive ? "text-white" : "text-typography-600"
-                    }
+                    className={isActive ? "text-white" : "text-typography-600"}
                   >
                     {label}
                   </Text>
@@ -248,9 +249,7 @@ export default function SearchScreen() {
               size={48}
               color="rgb(163 163 163)"
             />
-            <Text className="text-typography-400">
-              Type to search todos
-            </Text>
+            <Text className="text-typography-400">Type to search todos</Text>
           </VStack>
         ) : isLoading ? (
           <VStack className="pt-2">
@@ -310,11 +309,13 @@ git commit -m "feat: add search screen with text input, priority and completed f
 ### Task 4: Register search tab
 
 **Files:**
+
 - Modify: `app/(tabs)/_layout.tsx`
 
 - [ ] **Step 1: Add search Tabs.Screen**
 
 Add after the `categories` Tabs.Screen:
+
 ```tsx
 <Tabs.Screen
   name="search"

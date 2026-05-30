@@ -13,6 +13,7 @@
 ### Task 1: Add navigation to CategoryCard
 
 **Files:**
+
 - Modify: `components/category/CategoryCard.tsx`
 
 - [ ] **Add Pressable wrapper with router.push**
@@ -42,6 +43,7 @@ Ensure `Pressable` is already imported (it was already used indirectly via react
 ### Task 2: Create category detail screen
 
 **Files:**
+
 - Create: `app/category/[id].tsx`
 
 - [ ] **Create `app/category/[id].tsx`**
@@ -51,7 +53,14 @@ Full screen component:
 ```tsx
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  View,
+} from "react-native";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
@@ -262,9 +271,7 @@ export default function CategoryDetailScreen() {
                 isDisabled={!name.trim() || isUpdating}
                 onPress={handleSave}
               >
-                <ButtonText>
-                  {isUpdating ? "Saving\u2026" : "Save"}
-                </ButtonText>
+                <ButtonText>{isUpdating ? "Saving\u2026" : "Save"}</ButtonText>
               </Button>
               <Button
                 action="negative"

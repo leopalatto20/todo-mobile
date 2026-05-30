@@ -108,7 +108,9 @@ export function CreateCategorySheet() {
                     <Pressable
                       key={c}
                       className={`w-10 h-10 rounded-lg items-center justify-center ${
-                        color === c ? "border-2 border-primary-500" : "border-2 border-transparent"
+                        color === c
+                          ? "border-2 border-primary-500"
+                          : "border-2 border-transparent"
                       }`}
                       style={{ backgroundColor: resolveColor(c) }}
                       onPress={() => setColor(c)}

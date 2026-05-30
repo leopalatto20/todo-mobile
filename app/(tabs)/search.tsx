@@ -82,7 +82,8 @@ export default function SearchScreen() {
           <Box className="flex-row gap-2">
             {priorities.map((p) => {
               const isActive = priority === p;
-              const label = p === null ? "All" : p.charAt(0) + p.slice(1).toLowerCase();
+              const label =
+                p === null ? "All" : p.charAt(0) + p.slice(1).toLowerCase();
               return (
                 <Pressable
                   key={String(p)}
@@ -95,9 +96,7 @@ export default function SearchScreen() {
                 >
                   <Text
                     size="sm"
-                    className={
-                      isActive ? "text-white" : "text-typography-600"
-                    }
+                    className={isActive ? "text-white" : "text-typography-600"}
                   >
                     {label}
                   </Text>
@@ -122,9 +121,7 @@ export default function SearchScreen() {
                 >
                   <Text
                     size="sm"
-                    className={
-                      isActive ? "text-white" : "text-typography-600"
-                    }
+                    className={isActive ? "text-white" : "text-typography-600"}
                   >
                     {label}
                   </Text>
@@ -141,9 +138,7 @@ export default function SearchScreen() {
               size={48}
               color="rgb(163 163 163)"
             />
-            <Text className="text-typography-400">
-              Type to search todos
-            </Text>
+            <Text className="text-typography-400">Type to search todos</Text>
           </VStack>
         ) : isLoading ? (
           <VStack className="pt-2">
