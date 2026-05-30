@@ -11,7 +11,7 @@ export const categoryService = {
 
   getWithTodos: () =>
     api
-      .get<CategoryWithTodosResponse>("/categories/with-todos")
+      .get<CategoryWithTodosResponse[]>("/categories/with-todos")
       .then((r) => r.data),
 
   create: (dto: CreateCategoryDto) =>
