@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { router, Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
+import { CommonActions } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Box } from "@/components/ui/box";
 import { Heading } from "@/components/ui/heading";
@@ -17,6 +18,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { userService } from "@/services/users";
 
 export default function LoginScreen() {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { mutateAsync: signIn, isPending, error } = useSignIn();
@@ -26,7 +28,12 @@ export default function LoginScreen() {
       await signIn({ email, password });
       const profile = await userService.getProfile();
       useAuthStore.getState().setUser(profile);
-      router.replace("/todos");
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "(tabs)" }],
+        }),
+      );
     } catch {
       // error is surfaced via the mutation's `error` state
     }
