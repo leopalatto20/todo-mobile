@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker, {
   type DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -18,6 +19,7 @@ import { Heading } from "@/components/ui/heading";
 import { Input, InputField } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Text } from "@/components/ui/text";
+import { Toast, ToastTitle, useToast } from "@/components/ui/toast";
 import { VStack } from "@/components/ui/vstack";
 import { useCategories } from "@/hooks/useCategories";
 import { useAddComment } from "@/hooks/useComments";
@@ -29,6 +31,7 @@ import { priorityColor, priorityLabel } from "@/utils/todo";
 const priorities: TodoPriority[] = ["LOW", "MEDIUM", "HIGH"];
 
 export default function TodoDetailScreen() {
+  const toast = useToast();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { data: todo, isLoading, isError, error } = useTodo(id);
   const { data: allCategories } = useCategories();
@@ -72,7 +75,22 @@ export default function TodoDetailScreen() {
         : undefined,
       categories: selectedCategoryIds,
     };
-    updateTodo({ id, dto });
+    updateTodo(
+      { id, dto },
+      {
+        onSuccess: () => {
+          toast.show({
+            duration: 1500,
+            placement: "top",
+            render: () => (
+              <Toast action="success" variant="solid">
+                <ToastTitle>Todo saved</ToastTitle>
+              </Toast>
+            ),
+          });
+        },
+      },
+    );
   };
 
   const handleDelete = () => {
@@ -83,7 +101,19 @@ export default function TodoDetailScreen() {
         style: "destructive",
         onPress: () => {
           router.back();
-          deleteTodo(id).catch(() => {});
+          deleteTodo(id)
+            .then(() => {
+              toast.show({
+                duration: 3000,
+                placement: "top",
+                render: () => (
+                  <Toast action="success" variant="solid">
+                    <ToastTitle>Todo deleted</ToastTitle>
+                  </Toast>
+                ),
+              });
+            })
+            .catch(() => {});
         },
       },
     ]);
@@ -131,6 +161,18 @@ export default function TodoDetailScreen() {
         }}
       />
 
+      <Box className="flex-row items-center gap-3 px-6 pb-3 border-b border-outline-200">
+        <Pressable
+          onPress={() => router.back()}
+          className="p-1 -ml-1"
+        >
+          <Ionicons name="arrow-back" size={24} color="rgb(51 51 51)" />
+        </Pressable>
+        <Heading size="xl" className="font-bold text-typography-950 flex-1">
+          Edit Todo
+        </Heading>
+      </Box>
+
       <KeyboardAvoidingView
         className="flex-1"
         behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -144,10 +186,26 @@ export default function TodoDetailScreen() {
             <Box className="flex-row items-center gap-3">
               <Pressable
                 onPress={() =>
-                  updateTodo({
-                    id,
-                    dto: { completed: !todo.completed },
-                  })
+                  updateTodo(
+                    { id, dto: { completed: !todo.completed } },
+                    {
+                      onSuccess: () => {
+                        toast.show({
+                          duration: 2000,
+                          placement: "top",
+                          render: () => (
+                            <Toast action="success" variant="solid">
+                              <ToastTitle>
+                                {todo.completed
+                                  ? "Todo reopened"
+                                  : "Todo completed"}
+                              </ToastTitle>
+                            </Toast>
+                          ),
+                        });
+                      },
+                    },
+                  )
                 }
                 className={`w-6 h-6 rounded border-2 items-center justify-center ${
                   todo.completed

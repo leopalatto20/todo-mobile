@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -6,7 +7,6 @@ import {
   Platform,
   Pressable,
   ScrollView,
-  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Box } from "@/components/ui/box";
@@ -15,6 +15,7 @@ import { Heading } from "@/components/ui/heading";
 import { Input, InputField } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Text } from "@/components/ui/text";
+import { Toast, ToastTitle, useToast } from "@/components/ui/toast";
 import { VStack } from "@/components/ui/vstack";
 import {
   useCategoriesWithTodos,
@@ -27,6 +28,7 @@ import { PRESET_COLOR_NAMES, resolveColor } from "@/utils/colors";
 import { priorityColor } from "@/utils/todo";
 
 export default function CategoryDetailScreen() {
+  const toast = useToast();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { data: category, isLoading, isError, error } = useCategory(id);
   const { data: categoriesWithTodos } = useCategoriesWithTodos();
@@ -52,14 +54,29 @@ export default function CategoryDetailScreen() {
   }, [category, initialized]);
 
   const handleSave = () => {
-    updateCategory({
-      id,
-      dto: {
-        name: name.trim(),
-        description: description.trim(),
-        color,
+    updateCategory(
+      {
+        id,
+        dto: {
+          name: name.trim(),
+          description: description.trim(),
+          color,
+        },
       },
-    });
+      {
+        onSuccess: () => {
+          toast.show({
+            duration: 1500,
+            placement: "top",
+            render: () => (
+              <Toast action="success" variant="solid">
+                <ToastTitle>Category saved</ToastTitle>
+              </Toast>
+            ),
+          });
+        },
+      },
+    );
   };
 
   const handleDelete = () => {
@@ -70,7 +87,19 @@ export default function CategoryDetailScreen() {
         style: "destructive",
         onPress: () => {
           router.back();
-          deleteCategory(id).catch(() => {});
+          deleteCategory(id)
+            .then(() => {
+              toast.show({
+                duration: 3000,
+                placement: "top",
+                render: () => (
+                  <Toast action="success" variant="solid">
+                    <ToastTitle>Category deleted</ToastTitle>
+                  </Toast>
+                ),
+              });
+            })
+            .catch(() => {});
         },
       },
     ]);
@@ -109,6 +138,18 @@ export default function CategoryDetailScreen() {
           headerBackTitle: "Back",
         }}
       />
+
+      <Box className="flex-row items-center gap-3 px-6 pb-3 border-b border-outline-200">
+        <Pressable
+          onPress={() => router.back()}
+          className="p-1 -ml-1"
+        >
+          <Ionicons name="arrow-back" size={24} color="rgb(51 51 51)" />
+        </Pressable>
+        <Heading size="xl" className="font-bold text-typography-950 flex-1">
+          Edit Category
+        </Heading>
+      </Box>
 
       <KeyboardAvoidingView
         className="flex-1"
