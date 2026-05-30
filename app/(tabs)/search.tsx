@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { Stack } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, Pressable, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -56,6 +57,7 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background-0">
+      <Stack.Screen options={{ headerShown: false }} />
       <StatusBar style="dark" />
 
       <Box className="flex-1 px-6 relative">
