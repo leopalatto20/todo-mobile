@@ -4,6 +4,7 @@ import type {
   TodoDetailResponse,
   CreateTodoDto,
   UpdateTodoDto,
+  TodoPriority,
 } from "@/types/todo";
 
 export const todoService = {
@@ -19,4 +20,14 @@ export const todoService = {
     api.patch<TodoResponse>(`/todos/${id}`, dto).then((r) => r.data),
 
   delete: (id: string) => api.delete(`/todos/${id}`),
+
+  search: (
+    query: string,
+    filters?: { completed?: boolean; priority?: TodoPriority },
+  ) =>
+    api
+      .get<TodoResponse[]>(`/todos/search/${encodeURIComponent(query)}`, {
+        params: filters,
+      })
+      .then((r) => r.data),
 };
