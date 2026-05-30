@@ -1,6 +1,6 @@
 import { router, Stack } from "expo-router";
-import { useEffect } from "react";
-import { FlatList } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { FlatList, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CreateTodoSheet } from "@/components/todo/CreateTodoSheet";
 import { EmptyTodoState } from "@/components/todo/EmptyTodoState";
@@ -28,6 +28,13 @@ export default function TodosScreen() {
     error,
     refetch,
   } = useTodos();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  }, [refetch]);
 
   useEffect(() => {
     if (!isLoading && !user && !token) {
@@ -93,6 +100,9 @@ export default function TodosScreen() {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 80 }}
             className="flex-1"
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         )}
 
