@@ -33,6 +33,7 @@ Add to `hooks/useTodos.ts`:
 New file `app/(tabs)/search.tsx` — single file, follows existing todos.tsx pattern.
 
 **Layout (top to bottom):**
+
 1. `StatusBar style="dark"`
 2. Header row: "Search" heading + no sign-out button
 3. Search `Input` with `InputField`, placeholder "Search todos...", autoFocus
@@ -44,12 +45,14 @@ New file `app/(tabs)/search.tsx` — single file, follows existing todos.tsx pat
 7. Empty/error states matching existing patterns
 
 **State:**
+
 - `searchQuery: string` — raw input value
 - `debouncedQuery: string` — debounced (300ms) via useEffect, triggers API
 - `priority: TodoPriority | null` — null = all priorities
 - `completed: boolean | null` — null = all statuses
 
 **Interactions:**
+
 - Typing → debounce (300ms) → API call
 - Filter tap → immediate API call (no debounce)
 - Clearing search → results cleared
@@ -64,11 +67,11 @@ Add `search.tsx` as 3rd tab in `app/(tabs)/_layout.tsx`:
 
 ## Files Changed
 
-| File | Change |
-|------|--------|
-| `services/todos.ts` | Add `search()` method |
-| `hooks/useTodos.ts` | Add `useSearchTodos()` hook + search query key |
-| `app/(tabs)/search.tsx` | New — full search screen |
-| `app/(tabs)/_layout.tsx` | Add search Tabs.Screen |
+| File                     | Change                                         |
+| ------------------------ | ---------------------------------------------- |
+| `services/todos.ts`      | Add `search()` method                          |
+| `hooks/useTodos.ts`      | Add `useSearchTodos()` hook + search query key |
+| `app/(tabs)/search.tsx`  | New — full search screen                       |
+| `app/(tabs)/_layout.tsx` | Add search Tabs.Screen                         |
 
 No new components, no new types, no mutations.

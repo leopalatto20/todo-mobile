@@ -18,6 +18,14 @@ export function resolveColor(color: string): string {
 }
 
 export const PRESET_COLOR_NAMES = [
-  "red", "orange", "yellow", "green", "teal",
-  "cyan", "blue", "indigo", "purple", "pink",
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "teal",
+  "cyan",
+  "blue",
+  "indigo",
+  "purple",
+  "pink",
 ];

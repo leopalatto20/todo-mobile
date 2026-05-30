@@ -140,10 +140,7 @@ export default function CategoryDetailScreen() {
       />
 
       <Box className="flex-row items-center gap-3 px-6 pb-3 border-b border-outline-200">
-        <Pressable
-          onPress={() => router.back()}
-          className="p-1 -ml-1"
-        >
+        <Pressable onPress={() => router.back()} className="p-1 -ml-1">
           <Ionicons name="arrow-back" size={24} color="rgb(51 51 51)" />
         </Pressable>
         <Heading size="xl" className="font-bold text-typography-950 flex-1">

@@ -1,6 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { todoService } from "@/services/todos";
-import type { CreateTodoDto, TodoPriority, TodoResponse, UpdateTodoDto } from "@/types/todo";
+import type {
+  CreateTodoDto,
+  TodoPriority,
+  TodoResponse,
+  UpdateTodoDto,
+} from "@/types/todo";
 
 const todoKeys = {
   all: ["todos"] as const,
