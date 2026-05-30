@@ -5,12 +5,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Box } from "@/components/ui/box";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
-import { useCategories } from "@/hooks/useCategories";
+import { useCategoriesWithTodos } from "@/hooks/useCategories";
 import { CategoryCard } from "@/components/category/CategoryCard";
 import { CreateCategorySheet } from "@/components/category/CreateCategorySheet";
 
 export default function CategoriesScreen() {
-  const { data, isLoading, isError, error, refetch } = useCategories();
+  const { data, isLoading, isError, error, refetch } = useCategoriesWithTodos();
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(async () => {
