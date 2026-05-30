@@ -21,6 +21,14 @@ export function useCategoriesWithTodos() {
   });
 }
 
+export function useCategory(id: string) {
+  return useQuery({
+    queryKey: [...categoryKeys.all, id],
+    queryFn: () => categoryService.getById(id),
+    enabled: !!id,
+  });
+}
+
 export function useCreateCategory() {
   const qc = useQueryClient();
   return useMutation({

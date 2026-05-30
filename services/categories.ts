@@ -12,4 +12,7 @@ export const categoryService = {
 
   create: (dto: CreateCategoryDto) =>
     api.post<CategoryResponse>("/categories", dto).then((r) => r.data),
+
+  getById: (id: string) =>
+    api.get<CategoryResponse>(`/categories/${id}`).then((r) => r.data),
 };
