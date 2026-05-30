@@ -1,10 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { todoService } from "@/services/todos";
-import type { CreateTodoDto, TodoResponse, UpdateTodoDto } from "@/types/todo";
+import type { CreateTodoDto, TodoPriority, TodoResponse, UpdateTodoDto } from "@/types/todo";
 
 const todoKeys = {
   all: ["todos"] as const,
   detail: (id: string) => ["todos", id] as const,
+  search: (
+    query: string,
+    filters?: { completed?: boolean; priority?: TodoPriority },
+  ) => ["todos", "search", query, filters] as const,
 };
 
 export function useTodos() {
@@ -77,5 +81,16 @@ export function useDeleteTodo() {
       }
     },
     onSettled: () => qc.invalidateQueries({ queryKey: todoKeys.all }),
+  });
+}
+
+export function useSearchTodos(
+  query: string,
+  filters?: { completed?: boolean; priority?: TodoPriority },
+) {
+  return useQuery({
+    queryKey: todoKeys.search(query, filters),
+    queryFn: () => todoService.search(query, filters),
+    enabled: query.trim().length > 0,
   });
 }
