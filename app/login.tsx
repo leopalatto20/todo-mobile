@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { Stack, useNavigation } from "expo-router";
 import { CommonActions } from "@react-navigation/native";
+import { router, Stack, useNavigation } from "expo-router";
+import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Box } from "@/components/ui/box";
-import { Heading } from "@/components/ui/heading";
-import { Text } from "@/components/ui/text";
 import { Button, ButtonText } from "@/components/ui/button";
-import { Input, InputField } from "@/components/ui/input";
 import {
   FormControl,
   FormControlLabel,
   FormControlLabelText,
 } from "@/components/ui/form-control";
+import { Heading } from "@/components/ui/heading";
+import { Input, InputField } from "@/components/ui/input";
+import { Text } from "@/components/ui/text";
 
 import { useSignIn } from "@/hooks/useAuth";
-import { useAuthStore } from "@/stores/authStore";
 import { userService } from "@/services/users";
+import { useAuthStore } from "@/stores/authStore";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
