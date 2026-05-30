@@ -8,6 +8,7 @@ import {
   ScrollView,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
@@ -77,15 +78,15 @@ export default function CategoryDetailScreen() {
 
   if (isLoading) {
     return (
-      <View className="flex-1 bg-background-0 justify-center items-center">
+      <SafeAreaView className="flex-1 bg-background-0 justify-center items-center">
         <Spinner size="large" />
-      </View>
+      </SafeAreaView>
     );
   }
 
   if (isError || !category) {
     return (
-      <View className="flex-1 bg-background-0 justify-center items-center px-6">
+      <SafeAreaView className="flex-1 bg-background-0 justify-center items-center px-6">
         <Text className="text-typography-500 text-center">
           {error?.message || "Category not found"}
         </Text>
@@ -96,12 +97,12 @@ export default function CategoryDetailScreen() {
         >
           <ButtonText>Go Back</ButtonText>
         </Button>
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View className="flex-1 bg-background-0">
+    <SafeAreaView className="flex-1 bg-background-0">
       <Stack.Screen
         options={{
           title: "Edit Category",
@@ -233,6 +234,6 @@ export default function CategoryDetailScreen() {
           </VStack>
         </ScrollView>
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 }

@@ -11,6 +11,7 @@ import {
   ScrollView,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
@@ -22,8 +23,8 @@ import { useCategories } from "@/hooks/useCategories";
 import { useAddComment } from "@/hooks/useComments";
 import { useDeleteTodo, useTodo, useUpdateTodo } from "@/hooks/useTodos";
 import type { TodoPriority } from "@/types/todo";
-import { priorityColor, priorityLabel } from "@/utils/todo";
 import { resolveColor } from "@/utils/colors";
+import { priorityColor, priorityLabel } from "@/utils/todo";
 
 const priorities: TodoPriority[] = ["LOW", "MEDIUM", "HIGH"];
 
@@ -33,8 +34,7 @@ export default function TodoDetailScreen() {
   const { data: allCategories } = useCategories();
   const { mutate: updateTodo, isPending: isUpdating } = useUpdateTodo();
   const { mutateAsync: deleteTodo, isPending: isDeleting } = useDeleteTodo();
-  const { mutate: addComment, isPending: isAddingComment } =
-    useAddComment(id);
+  const { mutate: addComment, isPending: isAddingComment } = useAddComment(id);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -58,9 +58,7 @@ export default function TodoDetailScreen() {
 
   const toggleCategory = (catId: string) => {
     setSelectedCategoryIds((prev) =>
-      prev.includes(catId)
-        ? prev.filter((c) => c !== catId)
-        : [...prev, catId],
+      prev.includes(catId) ? prev.filter((c) => c !== catId) : [...prev, catId],
     );
   };
 
@@ -101,27 +99,31 @@ export default function TodoDetailScreen() {
 
   if (isLoading) {
     return (
-      <View className="flex-1 bg-background-0 justify-center items-center">
+      <SafeAreaView className="flex-1 bg-background-0 justify-center items-center">
         <Spinner size="large" />
-      </View>
+      </SafeAreaView>
     );
   }
 
   if (isError || !todo) {
     return (
-      <View className="flex-1 bg-background-0 justify-center items-center px-6">
+      <SafeAreaView className="flex-1 bg-background-0 justify-center items-center px-6">
         <Text className="text-typography-500 text-center">
           {error?.message || "Todo not found"}
         </Text>
-        <Button variant="outline" className="mt-4" onPress={() => router.back()}>
+        <Button
+          variant="outline"
+          className="mt-4"
+          onPress={() => router.back()}
+        >
           <ButtonText>Go Back</ButtonText>
         </Button>
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View className="flex-1 bg-background-0">
+    <SafeAreaView className="flex-1 bg-background-0">
       <Stack.Screen
         options={{
           title: "Edit Todo",
@@ -280,9 +282,9 @@ export default function TodoDetailScreen() {
                         >
                           {cat.name}
                         </Text>
-                        </Pressable>
-                      );
-                    })}
+                      </Pressable>
+                    );
+                  })}
                 </Box>
               </>
             )}
@@ -354,6 +356,6 @@ export default function TodoDetailScreen() {
           </VStack>
         </ScrollView>
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 }
