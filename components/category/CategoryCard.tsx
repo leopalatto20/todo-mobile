@@ -1,5 +1,5 @@
-import { Pressable } from "react-native";
 import { router } from "expo-router";
+import { Pressable } from "react-native";
 import { Box } from "@/components/ui/box";
 import { Heading } from "@/components/ui/heading";
 import { Progress, ProgressFilledTrack } from "@/components/ui/progress";
@@ -29,7 +29,9 @@ export function CategoryCard({ item }: { item: CategoryWithTodosResponse }) {
             {total > 0 && (
               <Box className="gap-1">
                 <Progress value={pct} size="xs" className="w-full">
-                  <ProgressFilledTrack />
+                  <ProgressFilledTrack
+                    style={{ backgroundColor: resolveColor(item.color) }}
+                  />
                 </Progress>
                 <Text size="xs" className="text-typography-400">
                   {completed}/{total} ({pct}%)
