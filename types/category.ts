@@ -10,3 +10,9 @@ export type CreateCategoryDto = {
   description: string;
   color: string;
 };
+
+export type UpdateCategoryDto = {
+  name?: string;
+  description?: string;
+  color?: string;
+};
