@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, Pressable, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
+import { ErrorTodoState } from "@/components/todo/ErrorTodoState";
 import { TodoCard } from "@/components/todo/TodoCard";
 import { TodoCardSkeleton } from "@/components/todo/TodoCardSkeleton";
 import { Box } from "@/components/ui/box";
@@ -151,14 +152,10 @@ export default function SearchScreen() {
             <TodoCardSkeleton />
           </VStack>
         ) : isError ? (
-          <VStack className="flex-1 justify-center items-center gap-4">
-            <Text className="text-typography-500 text-center">
-              {error?.message || "Something went wrong"}
-            </Text>
-            <Pressable onPress={() => refetch()}>
-              <Text className="text-primary-500 font-semibold">Retry</Text>
-            </Pressable>
-          </VStack>
+          <ErrorTodoState
+            message={error?.message || "Something went wrong"}
+            onRetry={refetch}
+          />
         ) : !data || data.length === 0 ? (
           <VStack className="flex-1 justify-center items-center gap-2">
             <Ionicons
