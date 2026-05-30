@@ -2,7 +2,9 @@ import { Stack } from "expo-router";
 import { useCallback, useState } from "react";
 import { FlatList, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 import { Box } from "@/components/ui/box";
+import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { useCategoriesWithTodos } from "@/hooks/useCategories";
@@ -22,12 +24,13 @@ export default function CategoriesScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background-0">
       <Stack.Screen options={{ headerShown: false }} />
+      <StatusBar style="dark" />
 
       <Box className="flex-1 px-6 relative">
-        <Box className="pt-4 pb-6">
-          <Text className="text-2xl font-bold text-typography-950">
+        <Box className="pb-2">
+          <Heading size="xl" className="font-bold text-typography-950">
             Categories
-          </Text>
+          </Heading>
         </Box>
 
         {isLoading ? (

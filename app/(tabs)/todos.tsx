@@ -1,14 +1,15 @@
+import { Ionicons } from "@expo/vector-icons";
 import { router, Stack } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
-import { FlatList, RefreshControl } from "react-native";
+import { FlatList, Pressable, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 import { CreateTodoSheet } from "@/components/todo/CreateTodoSheet";
 import { EmptyTodoState } from "@/components/todo/EmptyTodoState";
 import { ErrorTodoState } from "@/components/todo/ErrorTodoState";
 import { TodoCard } from "@/components/todo/TodoCard";
 import { TodoCardSkeleton } from "@/components/todo/TodoCardSkeleton";
 import { Box } from "@/components/ui/box";
-import { Button, ButtonText } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Spinner } from "@/components/ui/spinner";
 import { VStack } from "@/components/ui/vstack";
@@ -61,22 +62,24 @@ export default function TodosScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background-0">
       <Stack.Screen options={{ headerShown: false }} />
+      <StatusBar style="dark" />
 
       <Box className="flex-1 px-6 relative">
-        <Box className="flex-row justify-between items-center pt-4 pb-6">
+        <Box className="flex-row justify-between items-center pb-2">
           <Heading size="xl" className="font-bold text-typography-950">
             Your Todos
           </Heading>
-          <Button
-            variant="outline"
-            action="negative"
+          <Pressable
             onPress={handleSignOut}
-            isDisabled={isPending}
+            disabled={isPending}
+            className="p-2"
           >
-            <ButtonText>
-              {isPending ? "Signing out\u2026" : "Sign Out"}
-            </ButtonText>
-          </Button>
+            <Ionicons
+              name={isPending ? "hourglass-outline" : "log-out-outline"}
+              size={22}
+              color="rgb(163 163 163)"
+            />
+          </Pressable>
         </Box>
 
         {isTodosLoading ? (
