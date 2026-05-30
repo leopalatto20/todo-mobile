@@ -1,50 +1,47 @@
-# Welcome to your Expo app 👋
+# Todo Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Expo/React Native todo app with Firebase Auth and a REST API backend.
 
-## Get started
+Built with Expo SDK 54, expo-router (file-based routing), NativeWind v4 + Tailwind CSS, gluestack-ui v3, TanStack Query v5, Zustand, and Axios.
 
-1. Install dependencies
+## Prerequisites
 
-   ```bash
-   npm install
-   ```
+- [Bun](https://bun.sh) (package manager)
+- iOS Simulator (Xcode) or Android Emulator
+- Backend API running (see `.env.example` for required vars)
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Setup
 
 ```bash
-npm run reset-project
+bun install
+cp .env.example .env
+# Fill in EXPO_PUBLIC_API_URL and Firebase credentials
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Run
 
-## Learn more
+```bash
+npx expo start
+# Then press 'i' for iOS, 'a' for Android, 'w' for web
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Lint & Format
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm run lint
+npm run format
+```
 
-## Join the community
+## Architecture
 
-Join our community of developers creating universal apps.
+| Directory     | Purpose                                    |
+| ------------- | ------------------------------------------ |
+| `app/`        | File-based routes (expo-router)            |
+| `config/`     | Firebase init with AsyncStorage persistence|
+| `types/`      | TypeScript interfaces matching REST API    |
+| `services/`   | Axios CRUD per entity                      |
+| `stores/`     | Zustand auth store (persisted)             |
+| `hooks/`      | TanStack Query wrappers around services    |
+| `components/` | UI components (gluestack + domain)         |
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Auth flow: **Firebase Auth → Zustand store → Axios interceptor** (`Bearer` token).

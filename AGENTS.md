@@ -4,29 +4,31 @@ https://docs.expo.dev/versions/v54.0.0/
 
 ## Commands
 
-| Action    | Command                      |
-| --------- | ---------------------------- |
-| Start dev | `npx expo start`             |
-| iOS       | `npx expo start --ios`       |
-| Android   | `npx expo start --android`   |
-| Web       | `npx expo start --web`       |
-| Lint      | `npm run lint` (`expo lint`) |
+| Action      | Command                      |
+| ----------- | ---------------------------- |
+| Start dev   | `npx expo start`             |
+| iOS         | `npx expo start --ios`       |
+| Android     | `npx expo start --android`   |
+| Web         | `npx expo start --web`       |
+| Lint        | `npm run lint` (`expo lint`) |
+| Format      | `npm run format`             |
 
-Package manager: **Bun** — use `bun add` / `bun install`
+Package manager: **Bun** — `bun add` / `bun install`
 
 No test framework. No CI.
 
 ## Architecture
 
 ```
-app/        # File-based routes (expo-router). _layout.tsx is root
-config/     # Firebase app init (`initializeAuth` with AsyncStorage persistence)
-types/      # Manual interfaces matching REST API responses
-services/   # Axios CRUD per entity. api.ts creates client with auth interceptor
-stores/     # Zustand with persist (AsyncStorage). Single authStore
-hooks/      # TanStack Query v5 wrappers around services
-utils/      # Date formatters, etc.
-components/ui/ # gluestack-ui components (Box, Text, Heading, Button, Input, etc.)
+app/         # File-based routes (expo-router). _layout.tsx = root Stack
+app/(tabs)/  # Tab layout. _layout.tsx = Tabs navigator
+config/      # Firebase init (initializeAuth + AsyncStorage persistence)
+types/       # Manual TS interfaces matching REST responses
+services/    # Axios CRUD per entity. api.ts = client + auth interceptor
+stores/      # Zustand w/ persist (AsyncStorage). Single authStore
+hooks/       # TanStack Query v5 wrappers around services
+utils/       # Date formatters, color resolvers, priority helpers
+components/ui/ # gluestack-ui scaffolded components (Box, Text, Button, Input, Toast, etc.)
 ```
 
 Entry: `expo-router/entry` (package.json `main`).
@@ -39,36 +41,31 @@ Auth: **Firebase Auth → Zustand store → Axios interceptor** (`useAuthStore.g
 
 Env vars: `EXPO_PUBLIC_*` prefix. Copy `.env.example` to `.env`.
 
+## Navigation gotchas
+
+- Root Stack (`app/_layout.tsx`) has `headerShown: false`. Screens must wrap in `SafeAreaView` or add custom headers.
+- Tab layout (`app/(tabs)/_layout.tsx`) also has `headerShown: false`. Each tab screen renders a custom heading with `border-b border-outline-200`.
+- Auth redirect: use `CommonActions.reset` from `@react-navigation/native` (not `router.replace`) to fully purge login/signup from back stack.
+- Delete handlers: `router.back()` first, then fire `mutateAsync` (optimistic — mutation hooks handle cache rollback on error via `onMutate`/`onError`).
+- Detail pages (`/todo/[id]`, `/category/[id]`) have manual back buttons since root headers are hidden.
+
 ## Styling
 
-**NativeWind v4** with `className` props and Tailwind utilities. Import `@/global.css` in root layout. All screens use `className` — never `StyleSheet.create`.
+**NativeWind v4** with `className` props and Tailwind utilities. Import `@/global.css` in root layout. Never `StyleSheet.create`.
 
-**GluestackUI v3** (`@gluestack-ui/core`) wraps the app via `<GluestackUIProvider>` in `app/_layout.tsx`. Custom RGB color tokens defined in `tailwind.config.js` (`bg-background-0`, `text-typography-950`, `bg-primary-500`, etc.).
+**GluestackUI v3** (`@gluestack-ui/core`) wraps via `<GluestackUIProvider>` in `app/_layout.tsx`. Custom RGB color tokens in `tailwind.config.js` (`bg-background-0`, `text-typography-950`, `bg-primary-500`, etc.).
 
-**Gluestack components** are installed via `npx gluestack-ui add <name>` (scaffolds local files at `components/ui/<name>/` and installs deps). Import from `@/components/ui/<name>`. Currently installed: `box`, `text`, `heading`, `button`, `input`, `form-control`, `spinner`, `vstack`. When adding a new UI component, always use `npx gluestack-ui add <name> --use-bun`. Never hand-roll common interactive components that gluestack provides.
+**Adding components**: `npx gluestack-ui add <name> --use-bun`. Scaffolds files at `components/ui/<name>/`. Import from `@/components/ui/<name>`. Never hand-roll common interactive components.
 
-Metro: wrapped with `withNativeWind(config, { input: './global.css' })`.
+Metro: `withNativeWind(config, { input: './global.css' })`.
 
-## Tooling
+## TanStack Query patterns
 
-- **TypeScript**: strict mode, `@/*` → `./*` path alias (tsconfig.json + babel-plugin-module-resolver)
-- **New Architecture**: enabled (`newArchEnabled: true` in app.json)
-- **Expo experiments**: `typedRoutes` and `reactCompiler` enabled
-- **Metro / Babel**: `babel-preset-expo`, `nativewind/babel`, `react-native-worklets/plugin`
-- **Formatter**: Prettier with `prettier-plugin-tailwindcss`
+- **Optimistic updates**: `useMutation` with `onMutate` (cancel queries → snapshot → apply), `onError` (rollback), `onSettled` (invalidate).
+- **Query keys**: Explicit objects (`todoKeys.all`, `todoKeys.detail(id)`) defined per hook file.
+- Mutations expose both `mutate` (fire-and-forget) and `mutateAsync` (promise). Detail screens use `mutate` for saves, `mutateAsync` for deletes.
 
 ## Known issues
 
-- `npm run lint` / `npx tsc` report `import/no-unresolved` for `@/*` — Expo ESLint config limitation. Metro resolves them correctly at runtime.
+- `npm run lint` reports `import/no-unresolved` for `@/*` — Expo ESLint config limitation. Metro resolves correctly at runtime.
 - `.env` is gitignored; `.env.example` has the schema.
-
-## Available skills
-
-Load with `skill` tool — installed via `skills-lock.json`:
-
-- `building-native-ui` — native component patterns
-- `expo-api-routes` — server-side API routes
-- `expo-module` — native module creation
-- `expo-tailwind-setup` — Tailwind CSS setup for Expo
-- `native-data-fetching` — React Native data fetching
-- `upgrading-expo` — SDK upgrade guidance
