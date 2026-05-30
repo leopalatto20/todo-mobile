@@ -87,19 +87,7 @@ export default function CategoryDetailScreen() {
         style: "destructive",
         onPress: () => {
           router.back();
-          deleteCategory(id)
-            .then(() => {
-              toast.show({
-                duration: 3000,
-                placement: "top",
-                render: () => (
-                  <Toast action="success" variant="solid">
-                    <ToastTitle>Category deleted</ToastTitle>
-                  </Toast>
-                ),
-              });
-            })
-            .catch(() => {});
+          deleteCategory(id).catch(() => {});
         },
       },
     ]);

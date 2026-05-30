@@ -100,19 +100,7 @@ export default function TodoDetailScreen() {
         style: "destructive",
         onPress: () => {
           router.back();
-          deleteTodo(id)
-            .then(() => {
-              toast.show({
-                duration: 3000,
-                placement: "top",
-                render: () => (
-                  <Toast action="success" variant="solid">
-                    <ToastTitle>Todo deleted</ToastTitle>
-                  </Toast>
-                ),
-              });
-            })
-            .catch(() => {});
+          deleteTodo(id).catch(() => {});
         },
       },
     ]);
