@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { router, Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
+import { CommonActions } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Box } from "@/components/ui/box";
+import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Input, InputField } from "@/components/ui/input";
@@ -15,6 +18,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { userService } from "@/services/users";
 
 export default function SignupScreen() {
+  const navigation = useNavigation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,15 +29,26 @@ export default function SignupScreen() {
       await register({ name, email, password });
       const profile = await userService.getProfile();
       useAuthStore.getState().setUser(profile);
-      router.replace("/todos");
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "(tabs)" }],
+        }),
+      );
     } catch {
       // error is surfaced via the mutation's `error` state
     }
   };
 
   return (
+    <SafeAreaView className="flex-1 bg-background-0">
     <Box className="flex-1 bg-background-0 px-6 pt-6">
       <Stack.Screen options={{ title: "Sign Up" }} />
+      <Box className="pb-4 mb-4 border-b border-outline-200">
+        <Heading size="xl" className="font-bold text-typography-950">
+          Sign Up
+        </Heading>
+      </Box>
 
       <FormControl className="mb-4">
         <FormControlLabel className="mb-1">
@@ -108,5 +123,6 @@ export default function SignupScreen() {
         </ButtonText>
       </Button>
     </Box>
+    </SafeAreaView>
   );
 }

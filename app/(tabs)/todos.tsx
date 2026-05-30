@@ -65,10 +65,12 @@ export default function TodosScreen() {
       <StatusBar style="dark" />
 
       <Box className="flex-1 px-6 relative">
-        <Box className="flex-row justify-between items-center pb-2">
-          <Heading size="xl" className="font-bold text-typography-950">
-            Your Todos
-          </Heading>
+        <Box className="flex-row justify-between items-center pb-4 mb-4 border-b border-outline-200">
+          <Box className="gap-0.5">
+            <Heading size="xl" className="font-bold text-typography-950">
+              Your Todos
+            </Heading>
+          </Box>
           <Pressable
             onPress={handleSignOut}
             disabled={isPending}

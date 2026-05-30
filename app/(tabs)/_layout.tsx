@@ -5,6 +5,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerShown: false,
         tabBarActiveTintColor: "rgb(51 51 51)",
         tabBarInactiveTintColor: "rgb(163 163 163)",
         tabBarStyle: {
@@ -18,6 +19,7 @@ export default function TabLayout() {
         name="todos"
         options={{
           title: "Todos",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="list-outline" size={size} color={color} />
           ),
@@ -27,6 +29,7 @@ export default function TabLayout() {
         name="categories"
         options={{
           title: "Categories",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="folder-outline" size={size} color={color} />
           ),
@@ -36,6 +39,7 @@ export default function TabLayout() {
         name="search"
         options={{
           title: "Search",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="search-outline" size={size} color={color} />
           ),
