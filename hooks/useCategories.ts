@@ -25,6 +25,7 @@ export function useCreateCategory() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (dto: CreateCategoryDto) => categoryService.create(dto),
-    onSuccess: () => qc.invalidateQueries({ queryKey: categoryKeys.all }),
+    onSuccess: () =>
+      qc.invalidateQueries({ queryKey: categoryKeys.all, refetchType: "all" }),
   });
 }

@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
-import { FlatList } from "react-native";
+import { useCallback, useState } from "react";
+import { FlatList, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Box } from "@/components/ui/box";
 import { Text } from "@/components/ui/text";
@@ -9,7 +10,14 @@ import { CategoryCard } from "@/components/category/CategoryCard";
 import { CreateCategorySheet } from "@/components/category/CreateCategorySheet";
 
 export default function CategoriesScreen() {
-  const { data, isLoading, isError, error } = useCategories();
+  const { data, isLoading, isError, error, refetch } = useCategories();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  }, [refetch]);
 
   return (
     <SafeAreaView className="flex-1 bg-background-0">
@@ -45,6 +53,9 @@ export default function CategoriesScreen() {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 80 }}
             className="flex-1"
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         )}
 
