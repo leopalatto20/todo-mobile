@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { router, Stack } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Box } from "@/components/ui/box";
+import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Input, InputField } from "@/components/ui/input";
@@ -31,8 +33,14 @@ export default function LoginScreen() {
   };
 
   return (
-    <Box className="flex-1 bg-background-0 px-6 pt-6">
+    <SafeAreaView className="flex-1 bg-background-0">
+      <Box className="flex-1 bg-background-0 px-6 pt-6">
       <Stack.Screen options={{ title: "Log In" }} />
+      <Box className="pb-4 mb-4 border-b border-outline-200">
+        <Heading size="xl" className="font-bold text-typography-950">
+          Log In
+        </Heading>
+      </Box>
 
       <FormControl className="mb-4">
         <FormControlLabel className="mb-1">
@@ -89,5 +97,6 @@ export default function LoginScreen() {
         </ButtonText>
       </Button>
     </Box>
+    </SafeAreaView>
   );
 }
