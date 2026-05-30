@@ -83,9 +83,9 @@ export default function TodoDetailScreen() {
       {
         text: "Delete",
         style: "destructive",
-        onPress: async () => {
-          await deleteTodo(id);
+        onPress: () => {
           router.back();
+          deleteTodo(id).catch(() => {});
         },
       },
     ]);

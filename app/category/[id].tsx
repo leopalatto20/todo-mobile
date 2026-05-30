@@ -67,9 +67,9 @@ export default function CategoryDetailScreen() {
       {
         text: "Delete",
         style: "destructive",
-        onPress: async () => {
-          await deleteCategory(id);
+        onPress: () => {
           router.back();
+          deleteCategory(id).catch(() => {});
         },
       },
     ]);

@@ -27,7 +27,7 @@ export default function CategoriesScreen() {
       <StatusBar style="dark" />
 
       <Box className="flex-1 px-6 relative">
-        <Box className="pt-4 pb-6">
+        <Box className="pb-2">
           <Heading size="xl" className="font-bold text-typography-950">
             Categories
           </Heading>
