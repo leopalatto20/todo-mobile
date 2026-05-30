@@ -1,4 +1,8 @@
-import type { CategoryResponse, CreateCategoryDto } from "@/types/category";
+import type {
+  CategoryResponse,
+  CreateCategoryDto,
+  UpdateCategoryDto,
+} from "@/types/category";
 import type { CategoryWithTodosResponse } from "@/types/todo";
 import api from "./api";
 
@@ -7,7 +11,7 @@ export const categoryService = {
 
   getWithTodos: () =>
     api
-      .get<CategoryWithTodosResponse>("/categories/with-todos")
+      .get<CategoryWithTodosResponse[]>("/categories/with-todos")
       .then((r) => r.data),
 
   create: (dto: CreateCategoryDto) =>
@@ -15,4 +19,9 @@ export const categoryService = {
 
   getById: (id: string) =>
     api.get<CategoryResponse>(`/categories/${id}`).then((r) => r.data),
+
+  update: (id: string, dto: UpdateCategoryDto) =>
+    api.patch<CategoryResponse>(`/categories/${id}`, dto).then((r) => r.data),
+
+  delete: (id: string) => api.delete(`/categories/${id}`),
 };
