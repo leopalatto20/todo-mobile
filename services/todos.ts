@@ -15,13 +15,8 @@ export const todoService = {
   create: (dto: CreateTodoDto) =>
     api.post<TodoResponse>("/todos", dto).then((r) => r.data),
 
-  update: (id: string, dto: UpdateTodoDto) => {
-    console.log("[todoService.update] id:", id, "dto:", JSON.stringify(dto));
-    return api.patch<TodoResponse>(`/todos/${id}`, dto).then((r) => {
-      console.log("[todoService.update] response data:", JSON.stringify(r.data));
-      return r.data;
-    });
-  },
+  update: (id: string, dto: UpdateTodoDto) =>
+    api.patch<TodoResponse>(`/todos/${id}`, dto).then((r) => r.data),
 
   delete: (id: string) => api.delete(`/todos/${id}`),
 };

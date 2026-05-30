@@ -74,7 +74,6 @@ export default function TodoDetailScreen() {
         : undefined,
       categories: selectedCategoryIds,
     };
-    console.log("[TodoDetail] handleSave dto:", JSON.stringify(dto));
     updateTodo({ id, dto });
   };
 

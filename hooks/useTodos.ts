@@ -30,10 +30,8 @@ export function useCreateTodo() {
 export function useUpdateTodo() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, dto }: { id: string; dto: UpdateTodoDto }) => {
-      console.log("[useUpdateTodo] mutationFn id:", id, "dto:", JSON.stringify(dto));
-      return todoService.update(id, dto);
-    },
+    mutationFn: ({ id, dto }: { id: string; dto: UpdateTodoDto }) =>
+      todoService.update(id, dto),
     onMutate: async ({ id, dto }) => {
       await qc.cancelQueries({ queryKey: todoKeys.all });
       const prevData = qc.getQueryData<TodoResponse[]>(todoKeys.all);
