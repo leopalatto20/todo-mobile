@@ -15,8 +15,21 @@ Built with Expo SDK 54, expo-router (file-based routing), NativeWind v4 + Tailwi
 ```bash
 bun install
 cp .env.example .env
-# Fill in EXPO_PUBLIC_API_URL and Firebase credentials
 ```
+
+## Environment Variables
+
+All vars prefixed with `EXPO_PUBLIC_`. Copy `.env.example` to `.env` and fill in:
+
+| Variable | Description |
+|---|---|
+| `EXPO_PUBLIC_API_URL` | Backend REST API base URL |
+| `EXPO_PUBLIC_FIREBASE_API_KEY` | Firebase Web API key |
+| `EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN` | Firebase auth domain |
+| `EXPO_PUBLIC_FIREBASE_PROJECT_ID` | Firebase project ID |
+| `EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET` | Firebase storage bucket |
+| `EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Firebase sender ID |
+| `EXPO_PUBLIC_FIREBASE_APP_ID` | Firebase app ID |
 
 ## Run
 
